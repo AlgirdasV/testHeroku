@@ -13,6 +13,16 @@ var Parser = function() {
         return JSON.parse(JSONstringified);
     };
 
+    this.removeActionsWithErrors = function(obj, actionsWithErrors) {
+		for (var i = 0; i < actionsWithErrors.length; i++) {
+			obj.actions.splice(actionsWithErrors[i], 1);
+		}
+          // for (var i = 0; i < obj.actions.length; i++) {
+          //     console.log(obj.actions[i]);
+          // }
+    };
+
+
 };
 
 

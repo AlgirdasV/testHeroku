@@ -119,23 +119,22 @@ var Validator = function() {
         else {
             //publish('validated with errors', actionsWithErrors);
             console.log('validated with errors');
+            removeActionsWithErrors(object, actionsWithErrors);
     }
 
     }
     
   };
 };
-
-
 // object for testing:
 var object = {
   userID: '33.23.33.3:Chrome',
   // userID: '',
-  actions: [ {positionX: 12, positionY:145, eventType: 'click', elementID: 'form1', documentHeight: null,documentWidth: null,timeNow: Date.now()-1},
+  actions: [ {positionX: 12, positionY:145, eventType: 3, elementID: 'form1', documentHeight: null,documentWidth: null,timeNow: Date.now()-1},
    {positionX: 111, eventType: 'focus', positionY:222, elementID: 'form1', documentHeight: null,documentWidth: null, timeNow: Date.now()-1},
-   {positionX: 0, eventType: 'scroll', positionY: 145, elementID: null, documentHeight: null,documentWidth: null, timeNow: Date.now()-1},
+   {positionX: 0, eventType: 'scroll', positionY: -1, elementID: null, documentHeight: null,documentWidth: null, timeNow: Date.now()-1},
    {positionX: null, eventType: 'resize', positionY: null, elementID: null, documentHeight: 1453,documentWidth: 364, timeNow: Date.now()-1},
-   {positionX: null, eventType: 'resize', positionY: null, elementID: null, documentHeight: 1453,documentWidth: 364, timeNow: Date.now()-1}
+   {positionX: null, eventType: 'resize', positionY: 67, elementID: null, documentHeight: 1453,documentWidth: 364, timeNow: Date.now()-1}
    ]
 };
 
