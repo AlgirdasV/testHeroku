@@ -42,6 +42,12 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/helloworld', routes.helloworld);
+app.post('/receiver', function(req, res) {
+    console.log("post received:");
+	//FIX TODO iniate further work with data
+	res.json(200, {"success": "success"});
+	 console.log("post received:");
+});
 
 
 http.createServer(app).listen(app.get('port'), function(){
