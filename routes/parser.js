@@ -5,8 +5,9 @@ var Parser = function() {
 
     this.parseObject = function(JSONstringified) {
         var obj = this.jsonParser(JSONstringified);
-        validateOjbect(obj);
-        dataRecorder(obj);
+        eventEmitter.emit('OnParse', obj);
+        //validateOjbect(obj);
+        //dataRecorder(obj);
     };
 
     this.jsonParser = function(JSONstringified) {
