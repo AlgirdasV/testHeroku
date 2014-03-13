@@ -5,8 +5,8 @@ var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var Parser =  require('./routes/parser.js');
 var parseris = new Parser();
-var Parser =  require('./routes/validator.js');
-var validator = new Validator();
+//var Validator =  require('./routes/validator.js');
+//var validatorius = new Validator();
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -47,7 +47,7 @@ app.use(app.router);
         });
         eventEmitter.on('onParse', function (info) {
           console.log('Data parsed');
-          validatorius.validate(info);
+          //validatorius.validate(info);
         });
         eventEmitter.on('onValidateSuccess', function (stream) {
           
