@@ -1,11 +1,11 @@
-//var validator = require('./validator');
+var app = require('../app');
 
 var Parser = function() {
 
 
     this.parseObject = function(JSONstringified) {
         var obj = this.jsonParser(JSONstringified);
-        eventEmitter.emit('OnParse', obj);
+        app.eventEmitter.emit('onParse', obj);
         //validateOjbect(obj);
         //dataRecorder(obj);
     };
@@ -13,16 +13,6 @@ var Parser = function() {
     this.jsonParser = function(JSONstringified) {
         return JSON.parse(JSONstringified);
     };
-
-    this.removeActionsWithErrors = function(obj, actionsWithErrors) {
-		for (var i = 0; i < actionsWithErrors.length; i++) {
-			obj.actions.splice(actionsWithErrors[i], 1);
-		}
-          // for (var i = 0; i < obj.actions.length; i++) {
-          //     console.log(obj.actions[i]);
-          // }
-    };
-
 
 };
 

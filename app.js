@@ -1,10 +1,57 @@
 /**
  *  Module dependencies.
  */
-var events = require('events');
-var eventEmitter = new events.EventEmitter();
+//var events = require('events');
+//var eventEmitter = new events.EventEmitter();
+var EventEmitter = require('events').EventEmitter;
+var eventEmitter = new EventEmitter();
+exports.eventEmitter = eventEmitter;
+//event subscriberis TODO FIX iškelti į funcktions failą
+(function(){
+    console.log(5);
+        eventEmitter.on('onReceive', function (info) {
+          console.log('Data received', info );
+          parseris.parseObject(info);
+        });
+        eventEmitter.on('onParse', function (info) {
+          console.log('Data parsed');
+          validatorius.validate(info);
+        });
+        eventEmitter.on('onValidateSuccess', function (stream) {
+          
+          console.log('data validation succeed');
+        });
+        eventEmitter.on('onValidateFail', function (stream) {
+          
+          console.log('data validation failed');
+        });
+        eventEmitter.on('onRecordSucces', function (stream) {
+          
+          console.log('Data record succeed');
+        });
+        eventEmitter.on('onRecordFail', function (stream) {
+          
+          console.log('Data record failed');
+        });
+
+})();
+
 var Parser =  require('./routes/parser.js');
+var Validator =  require('./routes/validator.js');
 var parseris = new Parser();
+var validatorius = new Validator();
+var object = {
+  userID: '33.23.33.3:Chrome',
+  // userID: '',
+  actions: [ {positionX: 12, positionY:145, eventType: 'click', elementID: 'form1', documentHeight: null,documentWidth: null,timeNow: Date.now()-1000},
+   {positionX: 111, eventType: 'focus', positionY:222, elementID: 'form1', documentHeight: null,documentWidth: null, timeNow: Date.now()-10000},
+   {positionX: -4, eventType: 'scroll', positionY: 10, elementID: null, documentHeight: null,documentWidth: null, timeNow: Date.now()-1000},
+   {positionX: null, eventType: 'resize', positionY: null, elementID: null, documentHeight: 1453,documentWidth: 364, timeNow: Date.now()-100},
+   {positionX: null, eventType: 'resize', positionY: null, elementID: null, documentHeight: 1453,documentWidth: 364, timeNow: Date.now()-1000}
+   ]
+};
+var stringified = JSON.stringify(object);
+parseris.parseObject(stringified);
 //var Validator =  require('./routes/validator.js');
 //var validatorius = new Validator();
 var allowCrossDomain = function(req, res, next) {
@@ -37,36 +84,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(allowCrossDomain);
 app.use(app.router);
-
-//event subscriberis TODO FIX iškelti į funcktions failą
-(function(){
-    console.log(5);
-        eventEmitter.on('onReceive', function (info) {
-          console.log('Data received', info );
-          parseris.parseObject(info);
-        });
-        eventEmitter.on('onParse', function (info) {
-          console.log('Data parsed');
-          //validatorius.validate(info);
-        });
-        eventEmitter.on('onValidateSuccess', function (stream) {
-          
-          console.log('data validation succeed');
-        });
-        eventEmitter.on('onValidateFail', function (stream) {
-          
-          console.log('data validation failed');
-        });
-        eventEmitter.on('onRecordSucces', function (stream) {
-          
-          console.log('Data record succeed');
-        });
-        eventEmitter.on('onRecordFail', function (stream) {
-          
-          console.log('Data record failed');
-        });
-
-})();
 
 
 app.use(express.static(path.join(__dirname, 'public')));
