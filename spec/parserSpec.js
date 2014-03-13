@@ -3,9 +3,9 @@ describe('Parser', function() {
     var JSONObject,
         JSONstringified,
         Parser = require('../routes/parser.js'),
-        parseris = new Parser(),
-        validate = require('../routes/validator'),
-        validator = new validate();
+        parseris = new Parser();
+        // validate = require('../routes/validator'),
+        // validator = new validate();
 
     beforeEach(function() {
 
@@ -27,16 +27,15 @@ describe('Parser', function() {
         JSONObject = undefined;
         JSONstringified = undefined;
     });
-    // describe('parseObject function', function() {
-        // it('calls jsonParser', function() {
+    describe('parseObject function', function() {
+        it('calls jsonParser', function() {
+            var spyEvent = spyOn(parseris, "jsonParser");
+            // parser.jsonParser(JSONstringified);.and.callThrough()
+            parseris.parseObject(JSONObject);
+            expect(spyEvent).toHaveBeenCalled();
+        });
 
-        //     spyOn(parseris, "jsonParser").and.callThrough();
-        //     // parser.jsonParser(JSONstringified);
-        //     // parser.parseObject(JSONstringified);
-        //     expect(parseris.jsonParser).toHaveBeenCalled();
-        // });
-
-    // });
+    });
 
     describe('jsonParser function', function() {
         it('parses JSON string to object', function() {
