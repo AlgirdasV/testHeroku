@@ -34,7 +34,7 @@ var Validator = function() {
           positionY: { type:'number', gte: 0},
           documentHeight: { type: 'null'},
           documentWidth: {type: 'null'},
-          elementID: { type: 'string'},
+          elementId: { type: 'string'},
           timeNow:   { type: 'number', lt: Date.now(), gt: 0}
          }
   };
@@ -48,7 +48,7 @@ var Validator = function() {
           positionY: { type:'number', gte: 0},
           documentHeight: { type: 'null'},
           documentWidth: {type: 'null'},
-          elementID: { type: 'string'},
+          elementId: { type: 'string'},
           timeNow:   { type: 'number', lt: Date.now(), gt: 0}
          }
   };
@@ -62,7 +62,7 @@ var Validator = function() {
           positionY: { type:'null'},
           documentHeight: { type: 'number', gt: 0},
           documentWidth: {type: 'number', gt: 0},
-          elementID: {type: null},
+          elementId: {type: null},
           timeNow:   { type: 'number', lt: Date.now(), gt: 0}
          }
   };
@@ -76,7 +76,7 @@ var Validator = function() {
           positionY: { type:'number', gte: 0},
           documentHeight: { type: 'null'},
           documentWidth: {type: 'null'},
-          elementID: { type: 'null'},
+          elementId: { type: 'null'},
           timeNow:   { type: 'number', lt: Date.now(), gt: 0}
          }
   };
