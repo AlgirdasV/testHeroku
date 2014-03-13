@@ -128,13 +128,13 @@ var Validator = function() {
         }
         if (actionsWithErrors.length === 0) {
             //publish('validation succeeded');
-            app.eventEmitter.emit('onValidateSuccess');
+            app.eventEmitter.emit('onValidateSuccess', object);
         }
         else {
             //publish('validated with errors', actionsWithErrors);
             console.log('validated with errors, removing bad actions...');
             this.removeActionsWithErrors(object, actionsWithErrors);
-            app.eventEmitter.emit('onValidateSuccess');
+            app.eventEmitter.emit('onValidateSuccess', object);
     }
 
     }
@@ -142,20 +142,4 @@ var Validator = function() {
   };
 };
 
-// object for testing:
-// var object = {
-//   userID: '33.23.33.3:Chrome',
-//   // userID: '',
-//   actions: [ {positionX: 12, positionY:145, eventType: 3, elementID: 'form1', documentHeight: null,documentWidth: null,timeNow: Date.now()-1},
-//    {positionX: 111, eventType: 'focus', positionY:222, elementID: 'form1', documentHeight: null,documentWidth: null, timeNow: Date.now()-1},
-//    {positionX: 0, eventType: 'scroll', positionY: -1, elementID: null, documentHeight: null,documentWidth: null, timeNow: Date.now()-1},
-//    {positionX: null, eventType: 'resize', positionY: null, elementID: null, documentHeight: 1453,documentWidth: 364, timeNow: Date.now()-1},
-//    {positionX: null, eventType: 'resize', positionY: 67, elementID: null, documentHeight: 1453,documentWidth: 364, timeNow: Date.now()-1}
-//    ]
-// };
-
-// validator = new Validator();
-
-// // validator.validateUserID(object);
-// validator.validate(object);
 module.exports = Validator;
