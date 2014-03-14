@@ -1,6 +1,6 @@
 var inspector = require('schema-inspector');
 var app = require('../app');
-//var emiter = require('app');
+var emiter = require('../app');
 
 var Validator = function() {
 
@@ -25,123 +25,197 @@ var Validator = function() {
         }
     };
 
-  var clickSchema = {
-      type: 'object',
-      strict: true,
-    properties: {
-      eventType: {
-        type: 'string'
-      },
-          positionX: { type:'number', gte: 0},
-          positionY: { type:'number', gte: 0},
-          documentHeight: { type: 'null'},
-          documentWidth: {type: 'null'},
-          elementId: { type: 'string'},
-          timeNow:   { type: 'number', /*lt: Date.now() */ gt: 0}
-         }
-  };
-
-  var focusSchema = {
-      type: 'object',
-      strict: true,
-    properties: {
-          eventType: { type: 'string'},
-          positionX: { type:'null'},
-          positionY: { type:'null'},
-          documentHeight: { type: 'null'},
-          documentWidth: {type: 'null'},
-          elementId: { type: 'string'},
-          timeNow:   { type: 'number', /*lt: Date.now() */ gt: 0}
-         }
-  };
-
-  var screenSchema = {
-      type: 'object',
-      strict: true,
-    properties: {
-          eventType: { type:'string'},
-          positionX: { type:'null'},
-          positionY: { type:'null'},
-          documentHeight: { type: 'number', gt: 0},
-          documentWidth: {type: 'number', gt: 0},
-          elementId: {type: null},
-          timeNow:   { type: 'number', /*lt: Date.now() */ gt: 0}
-         }
-  };
-
-  var scrollSchema = {
+    var clickSchema = {
         type: 'object',
         strict: true,
-    properties: {
-          eventType: { type:'string'},
-          positionX: { type:'number', gte: 0},
-          positionY: { type:'number', gte: 0},
-          documentHeight: { type: 'null'},
-          documentWidth: {type: 'null'},
-          elementId: { type: 'null'},
-          timeNow:   { type: 'number', /*lt: Date.now() */ gt: 0}
-         }
-  };
-
-  this.removeActionsWithErrors = function(obj, actionsWithErrors) {
-    for (var i = 0; i < actionsWithErrors.length; i++) {
-      console.log(actionsWithErrors[i]);
-      obj.actions.splice(actionsWithErrors[i], 1);
-    }
-    // Watch good actions
-          // for (var i = 0; i < obj.actions.length; i++) {
-          //     console.log(obj.actions[i]);
-          // }
+        properties: {
+            eventType: {
+                type: 'string'
+            },
+            positionX: {
+                type: 'number',
+                gte: 0
+            },
+            positionY: {
+                type: 'number',
+                gte: 0
+            },
+            documentHeight: {
+                type: 'null'
+            },
+            documentWidth: {
+                type: 'null'
+            },
+            elementId: {
+                type: 'string'
+            },
+            timeNow: {
+                type: 'number',
+                /*lt: Date.now() */ gt: 0
+            }
+        }
     };
-  this.validate = function(object) {
-    var objectResult = inspector.validate(objectSchema, object);
-    var actionsWithErrors = [];
-    if (!objectResult.valid) {
-        //publish('validation failed');
-        console.log('Validation failed');
-        app.eventEmitter.emit('onValidateFail');
 
-    } else {
-        var actions = object.actions;
-        for (var i = actions.length - 1; i >= 0; i--) {
-          var result = undefined;
-          var validated = false;
-          if (actions[i].eventType ==='click' || actions[i].eventType ==='dblclick' || actions[i].eventType ==='dragstart' || actions[i].eventType ==='drop'){
-            result = inspector.validate(clickSchema,actions[i]); // Candidate is not valid
-            validated = true;
-          }
-          if (actions[i].eventType ==='focus'){
-            result = inspector.validate(focusSchema,actions[i]);
-            validated = true;
-          }
-          if (actions[i].eventType ==='resize' || actions[i].eventType ==='startScreen'){
-            result = inspector.validate(screenSchema,actions[i]);
-            validated = true;
-          }
-          if (actions[i].eventType ==='scroll'){
-            result = inspector.validate(scrollSchema,actions[i]);
-            validated = true;
-          }
-          //console.log(result.format());
-          if(!validated || !result.valid){
-              actionsWithErrors.push(i);
-          }
-
+    var focusSchema = {
+        type: 'object',
+        strict: true,
+        properties: {
+            eventType: {
+                type: 'string'
+            },
+            positionX: {
+                type: 'null'
+            },
+            positionY: {
+                type: 'null'
+            },
+            documentHeight: {
+                type: 'null'
+            },
+            documentWidth: {
+                type: 'null'
+            },
+            elementId: {
+                type: 'string'
+            },
+            timeNow: {
+                type: 'number',
+                /*lt: Date.now() */ gt: 0
+            }
         }
-        if (actionsWithErrors.length === 0) {
-            //publish('validation succeeded');
-            app.eventEmitter.emit('onValidateSuccess', object);
-        }
-        else {
-            //publish('validated with errors', actionsWithErrors);
-            console.log('validated with errors, removing bad actions...');
-            this.removeActionsWithErrors(object, actionsWithErrors);
-            app.eventEmitter.emit('onValidateSuccess', object);
-    }
+    };
 
-    }
-    
-  };
+    var screenSchema = {
+        type: 'object',
+        strict: true,
+        properties: {
+            eventType: {
+                type: 'string'
+            },
+            positionX: {
+                type: 'null'
+            },
+            positionY: {
+                type: 'null'
+            },
+            documentHeight: {
+                type: 'number',
+                gt: 0
+            },
+            documentWidth: {
+                type: 'number',
+                gt: 0
+            },
+            elementId: {
+                type: null
+            },
+            timeNow: {
+                type: 'number',
+                /*lt: Date.now() */ gt: 0
+            }
+        }
+    };
+
+    var scrollSchema = {
+        type: 'object',
+        strict: true,
+        properties: {
+            eventType: {
+                type: 'string'
+            },
+            positionX: {
+                type: 'number',
+                gte: 0
+            },
+            positionY: {
+                type: 'number',
+                gte: 0
+            },
+            documentHeight: {
+                type: 'null'
+            },
+            documentWidth: {
+                type: 'null'
+            },
+            elementId: {
+                type: 'null'
+            },
+            timeNow: {
+                type: 'number',
+                /*lt: Date.now() */ gt: 0
+            }
+        }
+    };
+
+    this.removeActionsWithErrors = function(obj, actionsWithErrors) {
+        for (var i = 0; i < actionsWithErrors.length; i++) {
+            console.log(actionsWithErrors[i]);
+            obj.actions.splice(actionsWithErrors[i], 1);
+        }
+        // Watch good actions
+        // for (var i = 0; i < obj.actions.length; i++) {
+        //     console.log(obj.actions[i]);
+        // }
+    };
+    this.validate = function(object) {
+        var objectResult = this.validateObject(object);
+        // var objectResult = inspector.validate(objectSchema, object);
+        var actionsWithErrors = [];
+        if (!objectResult.valid) {
+            console.log('Validation failed');
+            app.eventEmitter.emit('onValidateFail');
+
+        } else {
+            var actions = object.actions;
+            for (var i = actions.length - 1; i >= 0; i--) {
+                var validated = this.validateAction(actions[i]);
+                //console.log(result.format());
+                if (!validated) {
+                    actionsWithErrors.push(i);
+                }
+
+            }
+            if (actionsWithErrors.length === 0) {
+                app.eventEmitter.emit('onValidateSuccess', object);
+            } else {
+                console.log('validated with errors, removing bad actions...');
+                this.removeActionsWithErrors(object, actionsWithErrors);
+                app.eventEmitter.emit('onValidateSuccess', object);
+            }
+        }
+
+    };
+    this.validateAction = function(action) {
+        var result = undefined;
+        var validated = false;
+        if (action.eventType === 'click' || action.eventType === 'dblclick' || action.eventType === 'dragstart' || action.eventType === 'drop') {
+            result = inspector.validate(clickSchema, action); // Candidate is not valid
+            validated = true;
+        }
+        if (action.eventType === 'focus') {
+            result = inspector.validate(focusSchema, action);
+            validated = true;
+        }
+        if (action.eventType === 'resize' || action.eventType === 'startScreen') {
+            result = inspector.validate(screenSchema, action);
+            validated = true;
+        }
+        if (action.eventType === 'scroll') {
+            result = inspector.validate(scrollSchema, action);
+            validated = true;
+        }
+
+        if (!validated || !result.valid) {
+            return false;
+        } else {
+            return true;
+        }
+
+    };
+
+    this.validateObject = function(object) {
+        return inspector.validate(objectSchema, object);
+    };
 };
 
 module.exports = Validator;
