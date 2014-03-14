@@ -142,7 +142,11 @@ describe('Validator', function() {
     // userID: '',
     actions: 5
   };
-  // an example, not a general case 
+
+  var objectWithoutUserID = {
+        actions: []
+    };
+  // an example, not a general case
   describe('validateAction function', function() {
     runs.forEach(function(run) {
       var verb = run.result ? 'passes' : 'fails'
@@ -162,6 +166,10 @@ describe('Validator', function() {
 
     it('validates incorrect object', function() {
       expect(validatorius.validateObject(incorrectObject)).toBeTruthy();
+    });
+
+    it('should not throw error when userIP is undefined', function() {
+        expect(validator.validateObject(objectWithoutUserID)).not.toThrow();
     });
 
   });
