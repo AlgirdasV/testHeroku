@@ -29,7 +29,9 @@ var Validator = function() {
       type: 'object',
       strict: true,
     properties: {
-          eventType: { type:'string'},
+      eventType: {
+        type: 'string'
+      },
           positionX: { type:'number', gte: 0},
           positionY: { type:'number', gte: 0},
           documentHeight: { type: 'null'},
@@ -44,8 +46,8 @@ var Validator = function() {
       strict: true,
     properties: {
           eventType: { type: 'string'},
-          positionX: { type:'number', gte: 0},
-          positionY: { type:'number', gte: 0},
+          positionX: { type:'null'},
+          positionY: { type:'null'},
           documentHeight: { type: 'null'},
           documentWidth: {type: 'null'},
           elementId: { type: 'string'},
