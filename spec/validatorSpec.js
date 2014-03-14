@@ -169,7 +169,7 @@ describe('Validator', function() {
     });
 
     it('should not throw error when userIP is undefined', function() {
-        expect(validator.validateObject(objectWithoutUserID)).not.toThrow();
+        expect(function(){validatorius.validateObject(objectWithoutUserID)}).not.toThrow();
     });
 
   });
