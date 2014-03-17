@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         watch: {
             scripts: {
                 files: ['**/*.js'],
-                tasks: ['jasmine'],
+                tasks: ['jasmine', 'jshint'],
                 options: {
                     // livereload: true,
                     spawn: false,

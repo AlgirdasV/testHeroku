@@ -51,7 +51,8 @@ var Validator = function() {
             },
             timeNow: {
                 type: 'number',
-                /*lt: Date.now() */ gt: 0
+                /*lt: Date.now() */
+                gt: 0
             }
         }
     };
@@ -80,7 +81,8 @@ var Validator = function() {
             },
             timeNow: {
                 type: 'number',
-                /*lt: Date.now() */ gt: 0
+                /*lt: Date.now() */
+                gt: 0
             }
         }
     };
@@ -111,7 +113,8 @@ var Validator = function() {
             },
             timeNow: {
                 type: 'number',
-                /*lt: Date.now() */ gt: 0
+                /*lt: Date.now() */
+                gt: 0
             }
         }
     };
@@ -142,7 +145,8 @@ var Validator = function() {
             },
             timeNow: {
                 type: 'number',
-                /*lt: Date.now() */ gt: 0
+                /*lt: Date.now() */
+                gt: 0
             }
         }
     };
