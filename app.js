@@ -57,9 +57,20 @@ app.post('/receiver', function(req, res) {
 	console.log("post received:");
 	//FIX TODO check data and send response depending
 	res.json(200, {
-		"success": "success",
+		"success": "success"
 	});
 	eventEmitter.emit('onReceive', req.body.message);
+});
+
+app.post('/register', function(req, res) {
+	console.log("post received:");
+	//FIX TODO get unique Id for user
+	//eventEmitter.emit('onRegister', req.body.message);
+	//response shpuld after successfully registered event
+	res.json(200, {
+		"success": "success",
+		"userId": "33.23.33.3"
+	});
 });
 
 http.createServer(app).listen(app.get('port'), function() {
