@@ -24,7 +24,7 @@ var Validator = function() {
             }
         }
     };
-
+    var schemaPosX = 'number';
     var clickSchema = {
         type: 'object',
         strict: true,
@@ -33,7 +33,7 @@ var Validator = function() {
                 type: 'string'
             },
             positionX: {
-                type: 'number',
+                type: schemaPosX,
                 gte: 0
             },
             positionY: {
@@ -53,6 +53,9 @@ var Validator = function() {
                 type: 'number',
                 /*lt: Date.now() */
                 gt: 0
+            },
+            url: {
+                type: 'string'
             }
         }
     };
@@ -83,6 +86,9 @@ var Validator = function() {
                 type: 'number',
                 /*lt: Date.now() */
                 gt: 0
+            },
+            url: {
+                type: null
             }
         }
     };
@@ -115,6 +121,9 @@ var Validator = function() {
                 type: 'number',
                 /*lt: Date.now() */
                 gt: 0
+            },
+            url: {
+                type: null
             }
         }
     };
@@ -147,6 +156,9 @@ var Validator = function() {
                 type: 'number',
                 /*lt: Date.now() */
                 gt: 0
+            },
+            url: {
+                type: null
             }
         }
     };
@@ -154,12 +166,18 @@ var Validator = function() {
     this.removeActionsWithErrors = function(obj, actionsWithErrors) {
         for (var i = 0; i < actionsWithErrors.length; i++) {
             console.log(actionsWithErrors[i]);
-            obj.actions.splice(actionsWithErrors[i], 1);
+            obj.actions[actionsWithErrors[i]].eventType = 'Unknow';
+            // var unknownAction = {
+            // timeNow: obj.actions[actionsWithErrors[i]].timeNow,
+            // eventType: 'Unknown'
+            // // positionX: obj.actions[actionsWithErrors[i]].positionX,
+            // // positionY: obj.actions[actionsWithErrors[i]].positionY,
+            // // elementId: obj.actions[actionsWithErrors[i]].elementId,
+            // // documentHeight: obj.actions[actionsWithErrors[i]].documentHeight,
+            // // documentWidth: obj.actions[actionsWithErrors[i]].documentWidth
+            // };
+            // obj.actions.splice(actionsWithErrors[i], 1, unknownAction);
         }
-        // Watch good actions
-        // for (var i = 0; i < obj.actions.length; i++) {
-        //     console.log(obj.actions[i]);
-        // }
     };
     this.validate = function(object) {
         var objectResult = this.validateObject(object);
