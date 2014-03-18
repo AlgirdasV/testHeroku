@@ -1,5 +1,6 @@
 var inspector = require('schema-inspector');
 var app = require('../app');
+var _ = require('underscore')._;
 var emiter = require('../app');
 
 var Validator = function() {
@@ -24,8 +25,8 @@ var Validator = function() {
             }
         }
     };
-    var schemaPosX = 'number';
-    var clickSchema = {
+
+    var schema = {
         type: 'object',
         strict: true,
         properties: {
@@ -33,21 +34,19 @@ var Validator = function() {
                 type: 'string'
             },
             positionX: {
-                type: schemaPosX,
-                gte: 0
+                exec: validatePosition
             },
             positionY: {
-                type: 'number',
-                gte: 0
+                exec: validatePosition
             },
             documentHeight: {
-                type: 'null'
+                exec: validateScreenSize
             },
             documentWidth: {
-                type: 'null'
+                exec: validateScreenSize
             },
             elementId: {
-                type: 'string'
+                exec: validateElementID
             },
             timeNow: {
                 type: 'number',
@@ -55,128 +54,62 @@ var Validator = function() {
                 gt: 0
             },
             url: {
-                type: 'string'
+                exec: validateUrl
             }
         }
     };
 
-    var focusSchema = {
-        type: 'object',
-        strict: true,
-        properties: {
-            eventType: {
-                type: 'string'
-            },
-            positionX: {
-                type: 'null'
-            },
-            positionY: {
-                type: 'null'
-            },
-            documentHeight: {
-                type: 'null'
-            },
-            documentWidth: {
-                type: 'null'
-            },
-            elementId: {
-                type: 'string'
-            },
-            timeNow: {
-                type: 'number',
-                /*lt: Date.now() */
-                gt: 0
-            },
-            url: {
-                type: null
-            }
-        }
-    };
+    var eventsWithPosition = ['click', 'dblclick', 'focus', 'dragstart', 'drop', 'scroll', 'change'],
+        eventsWithScreenSize = ['resize', 'startscreen'],
+        eventsWithElementID = ['click', 'focus', 'dblclick', 'dragstart', 'drop', 'change'],
+        eventsWithUrl = ['click', 'startscreen'];
 
-    var screenSchema = {
-        type: 'object',
-        strict: true,
-        properties: {
-            eventType: {
-                type: 'string'
-            },
-            positionX: {
-                type: 'null'
-            },
-            positionY: {
-                type: 'null'
-            },
-            documentHeight: {
-                type: 'number',
-                gt: 0
-            },
-            documentWidth: {
-                type: 'number',
-                gt: 0
-            },
-            elementId: {
-                type: null
-            },
-            timeNow: {
-                type: 'number',
-                /*lt: Date.now() */
-                gt: 0
-            },
-            url: {
-                type: null
-            }
+    function shouldBeNull(self, post) {
+        if (post !== null) {
+            self.report('of event ' + self.origin.eventType + ' must be null');
         }
-    };
+    }
 
-    var scrollSchema = {
-        type: 'object',
-        strict: true,
-        properties: {
-            eventType: {
-                type: 'string'
-            },
-            positionX: {
-                type: 'number',
-                gte: 0
-            },
-            positionY: {
-                type: 'number',
-                gte: 0
-            },
-            documentHeight: {
-                type: 'null'
-            },
-            documentWidth: {
-                type: 'null'
-            },
-            elementId: {
-                type: 'null'
-            },
-            timeNow: {
-                type: 'number',
-                /*lt: Date.now() */
-                gt: 0
-            },
-            url: {
-                type: null
+    function validatePosition(schema, post) {
+        var self = this;
+        if (_.contains(eventsWithPosition, this.origin.eventType)) {
+            if (post < 0) {
+                this.report(this.origin.eventType + ' event position must be >=0');
             }
-        }
-    };
+        } else shouldBeNull(self, post);
+    }
+
+    function validateScreenSize(schema, post) {
+        var self = this;
+        if (_.contains(eventsWithScreenSize, this.origin.eventType)) {
+            if (post <= 0) {
+                this.report(this.origin.eventType + ' event screen size must be >0');
+            }
+        } else shouldBeNull(self, post);
+    }
+
+    function validateElementID(schema, post) {
+        var self = this;
+        if (_.contains(eventsWithElementID, this.origin.eventType)) {
+            if (typeof post !== 'string') {
+                this.report(this.origin.eventType + ' event element id must be of string type');
+            }
+        } else shouldBeNull(self, post);
+    }
+
+    function validateUrl(schema, post) {
+        var self = this;
+        if (_.contains(eventsWithUrl, this.origin.eventType)) {
+            if (typeof post !== 'string') {
+                this.report(this.origin.eventType + ' event element url must be of string type');
+            }
+        } else shouldBeNull(self, post);
+    }
 
     this.removeActionsWithErrors = function(obj, actionsWithErrors) {
         for (var i = 0; i < actionsWithErrors.length; i++) {
             console.log(actionsWithErrors[i]);
             obj.actions[actionsWithErrors[i]].eventType = 'Unknow';
-            // var unknownAction = {
-            // timeNow: obj.actions[actionsWithErrors[i]].timeNow,
-            // eventType: 'Unknown'
-            // // positionX: obj.actions[actionsWithErrors[i]].positionX,
-            // // positionY: obj.actions[actionsWithErrors[i]].positionY,
-            // // elementId: obj.actions[actionsWithErrors[i]].elementId,
-            // // documentHeight: obj.actions[actionsWithErrors[i]].documentHeight,
-            // // documentWidth: obj.actions[actionsWithErrors[i]].documentWidth
-            // };
-            // obj.actions.splice(actionsWithErrors[i], 1, unknownAction);
         }
     };
     this.validate = function(object) {
@@ -208,26 +141,15 @@ var Validator = function() {
 
     };
     this.validateAction = function(action) {
-        var result = undefined;
-        var validated = false;
-        if (action.eventType === 'click' || action.eventType === 'dblclick' || action.eventType === 'dragstart' || action.eventType === 'drop') {
-            result = inspector.validate(clickSchema, action); // Candidate is not valid
-            validated = true;
+        var result = inspector.validate(schema, action);
+        if (result && result.format){
+            console.log('event ')
+            console.dir(action);
+            console.log(+' ' + result.format());
+            console.log();
+            //^^ For testing purposes ;)
         }
-        if (action.eventType === 'focus') {
-            result = inspector.validate(focusSchema, action);
-            validated = true;
-        }
-        if (action.eventType === 'resize' || action.eventType === 'startScreen') {
-            result = inspector.validate(screenSchema, action);
-            validated = true;
-        }
-        if (action.eventType === 'scroll') {
-            result = inspector.validate(scrollSchema, action);
-            validated = true;
-        }
-
-        if (!validated || !result.valid) {
+        if (!result.valid) {
             return false;
         } else {
             return true;
