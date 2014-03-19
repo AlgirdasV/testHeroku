@@ -1,28 +1,28 @@
 var app = require('../app');
 
-var Listener = function() {
+var Listener = function () {
 
-    this.init = function() {
+    this.init = function () {
 
-        eventEmitter.on('onReceive', function(info) {
+        eventEmitter.on('onReceive', function (info) {
             console.log('\nData received', info);
             parser.parseObject(info);
         });
-        eventEmitter.on('onParse', function(info) {
+        eventEmitter.on('onParse', function (info) {
             console.log('\nData parsed');
             validator.validate(info);
         });
-        eventEmitter.on('onValidateSuccess', function(info) {
+        eventEmitter.on('onValidateSuccess', function (info) {
             console.log('\nData validation succeed', info);
             // FIX validate if truly successful
             eventEmitter.emit('onRecordSuccess', info);
         });
-        eventEmitter.on('onValidateFail', function(info) {
+        eventEmitter.on('onValidateFail', function (info) {
             console.log('\nData validation failed');
         });
-        eventEmitter.on('onRecordSuccess', function(info) {
+        eventEmitter.on('onRecordSuccess', function (info) {
             console.log('\nData record succeed');
-            fs.appendFile("./littleEyeLogs.txt", '\n' + JSON.stringify(info), function(err) {
+            fs.appendFile("./public/logs.txt", '\n' + JSON.stringify(info), function (err) {
                 if (err) {
                     eventEmitter.emit('onRecordFail', err);
                 } else {
@@ -30,9 +30,11 @@ var Listener = function() {
                 }
             });
         });
-        eventEmitter.on('onRecordFail', function(info) {
+        eventEmitter.on('onRecordFail', function (info) {
             console.log('\nData record failed: ', info);
         });
+
+        
     }
 };
 
