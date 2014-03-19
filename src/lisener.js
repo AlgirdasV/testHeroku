@@ -25,6 +25,7 @@ var Listener = function () {
         });
         emitter.on('onValidateFail', function (info) {
             console.log('\nData validation failed');
+            emitter.emit('onRecordFail', info);
         });
         emitter.on('onRecordSuccess', function (info) {
             console.log('\nData record succeed');
@@ -38,6 +39,9 @@ var Listener = function () {
         });
         emitter.on('onRecordFail', function (info) {
             console.log('\nData record failed: ', info);
+            fs.appendFile("./public/faillogs.txt", '\n' + JSON.stringify(info), function (err) {
+                console.log("The failed recod file was saved!");
+            });
         });
 
 

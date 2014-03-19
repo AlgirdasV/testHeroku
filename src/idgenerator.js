@@ -19,7 +19,4 @@ var IdGenerator = function() {
 
 };
 
-var generator = new IdGenerator();
-generator.generateId();
-console.log(generator.getUniqueId());
 module.exports = IdGenerator;
