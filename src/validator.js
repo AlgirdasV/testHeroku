@@ -16,7 +16,9 @@ var Validator = function() {
                             timeNow = parseInt(splits[0]),
                             randFirst = splits[1],
                             randSecond = splits [2];
-                        if(isNaN(timeNow) || timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
+                        if(isNaN(timeNow) || randFirst === undefined || randSecond === undefined) {
+                            this.report('IP is not valid ');
+                        } else if(timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
                             this.report('IP is not valid ');
                         }
                     }
@@ -129,7 +131,7 @@ var Validator = function() {
         var actionsWithErrors = [];
         if (!objectResult.valid) {
             console.log('Validation failed');
-            emitter.emit('onValidateFail');
+            emitter.emit('onValidateFail', object);
 
         } else {
             var actions = object.actions;

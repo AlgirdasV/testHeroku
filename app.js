@@ -64,8 +64,8 @@ app.post('/register', function(req, res) {
 	//eventEmitter.emit('onRegister', req.body.message);
 	//response shpuld after successfully registered event
 	res.json(200, {
-		"success": "success",
-		"userId": idGenerator.getUniqueId()
+		'success': 'success',
+		'userId': idGenerator.getUniqueId()
 	});
 });
 
