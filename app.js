@@ -50,7 +50,7 @@ if ('development' === app.get('env')) {
 listener.init();
 app.get('/', routes.index);
 app.post('/receiver', function(req, res) {
-	console.log("post received:");
+	//console.log("post received:", req.body.message);
 	//FIX TODO check data and send response depending
 	res.json(200, {
 		"success": "success"
