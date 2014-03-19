@@ -19,6 +19,7 @@
     "grunt-contrib-watch": "^0.5.3",
     "grunt-contrib-concat": "^0.3.0",
     "grunt-jasmine-node": "^0.1.0",
-    "underscore": "1.x"
+    "underscore": "1.x",
+    "request": "*"
   }
 }
