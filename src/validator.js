@@ -76,7 +76,9 @@ var Validator = function() {
             if (post < 0) {
                 this.report(this.origin.eventType + ' event position must be >=0');
             }
-        } else shouldBeNull(self, post);
+        } else {
+            shouldBeNull(self, post);
+        }
     }
 
     function validateScreenSize(schema, post) {
@@ -85,7 +87,9 @@ var Validator = function() {
             if (post <= 0) {
                 this.report(this.origin.eventType + ' event screen size must be >0');
             }
-        } else shouldBeNull(self, post);
+        } else {
+            shouldBeNull(self, post);
+        }
     }
 
     function validateElementID(schema, post) {
@@ -94,7 +98,9 @@ var Validator = function() {
             if (typeof post !== 'string') {
                 this.report(this.origin.eventType + ' event element id must be of string type');
             }
-        } else shouldBeNull(self, post);
+        } else {
+            shouldBeNull(self, post);
+        }
     }
 
     function validateUrl(schema, post) {
@@ -103,7 +109,9 @@ var Validator = function() {
             if (typeof post !== 'string') {
                 this.report(this.origin.eventType + ' event element url must be of string type');
             }
-        } else shouldBeNull(self, post);
+        } else {
+            shouldBeNull(self, post);
+        }
     }
 
     this.removeActionsWithErrors = function(obj, actionsWithErrors) {
@@ -142,8 +150,8 @@ var Validator = function() {
     };
     this.validateAction = function(action) {
         var result = inspector.validate(schema, action);
-        if (result && result.format){
-            console.log('event ')
+        if (result && result.format) {
+            console.log('event ');
             console.dir(action);
             console.log(+' ' + result.format());
             console.log();

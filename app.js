@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 	next();
 });
 // development only
-if ('development' == app.get('env')) {
+if ('development' === app.get('env')) {
 	app.use(express.errorHandler());
 }
 

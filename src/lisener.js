@@ -35,7 +35,7 @@ var Listener = function () {
         });
 
         
-    }
+    };
 };
 
 module.exports = Listener;

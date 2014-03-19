@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                     it: true
                 }
             },
-            src: ['Gruntfile.js', 'src/**/*.js', 'spec/**/*.js']
+            src: ['Gruntfile.js', 'src/**/*.js', 'spec/*.js']
         },
         watch: {
             scripts: {

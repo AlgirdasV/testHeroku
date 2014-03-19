@@ -149,7 +149,7 @@ describe('Validator', function() {
   // an example, not a general case
   describe('validateAction function', function() {
     runs.forEach(function(run) {
-      var verb = run.result ? 'passes' : 'fails'
+      var verb = run.result ? 'passes' : 'fails';
       it(verb + ' when ' + run.desc, function() {
         var result = validatorius.validateAction.apply(this, run.args);
         expect(result).toEqual(run.result);
@@ -169,7 +169,7 @@ describe('Validator', function() {
     });
 
     it('should not throw error when userIP is undefined', function() {
-        expect(function(){validatorius.validateObject(objectWithoutUserID)}).not.toThrow();
+        expect(function(){validatorius.validateObject(objectWithoutUserID);}).not.toThrow();
     });
 
   });
