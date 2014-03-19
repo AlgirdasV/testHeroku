@@ -12,12 +12,15 @@ var Validator = function() {
             userID: {
                 type: 'string',
                 exec: function(schema, post) {
-                    var splits = post.split(':'),
-                        userIP = splits[0],
-                        ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-                    if (!userIP.match(ipformat)) {
-                        this.report('IP is not valid ');
+                    if (post){
+                        var splits = post.split(':'),
+                            userIP = splits[0],
+                            ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+                        if (!userIP.match(ipformat)) {
+                            this.report('IP is not valid ');
+                        }
                     }
+                    else this.report(post+'was undefined');
                 }
             },
             actions: {

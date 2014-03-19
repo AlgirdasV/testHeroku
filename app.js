@@ -3,10 +3,6 @@
  */
 var EventEmitter = require('events').EventEmitter;
 eventEmitter = new EventEmitter(),
-Parser = require('./src/parser.js'),
-parser = new Parser(),
-Validator = require('./src/validator.js'),
-validator = new Validator(),
 Listener = require('./src/lisener.js'),
 listener = new Listener(),
 allowCrossDomain = function(req, res, next) {
