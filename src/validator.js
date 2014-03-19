@@ -1,7 +1,6 @@
-var inspector = require('schema-inspector');
-var app = require('../app');
-var _ = require('underscore')._;
-var emiter = require('../app');
+var inspector = require('schema-inspector'),
+    _ = require('underscore')._,
+    emitter = require('./emitter.js').eventEmitter;
 
 var Validator = function() {
 
@@ -129,7 +128,7 @@ var Validator = function() {
         var actionsWithErrors = [];
         if (!objectResult.valid) {
             console.log('Validation failed');
-            app.eventEmitter.emit('onValidateFail');
+            emitter.emit('onValidateFail');
 
         } else {
             var actions = object.actions;
@@ -142,11 +141,11 @@ var Validator = function() {
 
             }
             if (actionsWithErrors.length === 0) {
-                app.eventEmitter.emit('onValidateSuccess', object);
+                emitter.emit('onValidateSuccess', object);
             } else {
                 console.log('validated with errors, removing bad actions...');
                 this.removeActionsWithErrors(object, actionsWithErrors);
-                app.eventEmitter.emit('onValidateSuccess', object);
+                emitter.emit('onValidateSuccess', object);
             }
         }
 

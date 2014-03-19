@@ -1,40 +1,46 @@
-var app = require('../app');
+// var app = require('../app');
+var emitter = require('./emitter.js').eventEmitter,
+    parserModule = require('./parser.js'),
+    parser = new parserModule(),
+    validatorModule = require('./validator.js'),
+    validator = new validatorModule(),
+    fs = require('fs');
 
 var Listener = function () {
 
     this.init = function () {
 
-        eventEmitter.on('onReceive', function (info) {
+        emitter.on('onReceive', function (info) {
             console.log('\nData received', info);
             parser.parseObject(info);
         });
-        eventEmitter.on('onParse', function (info) {
+        emitter.on('onParse', function (info) {
             console.log('\nData parsed');
             validator.validate(info);
         });
-        eventEmitter.on('onValidateSuccess', function (info) {
+        emitter.on('onValidateSuccess', function (info) {
             console.log('\nData validation succeed', info);
             // FIX validate if truly successful
-            eventEmitter.emit('onRecordSuccess', info);
+            emitter.emit('onRecordSuccess', info);
         });
-        eventEmitter.on('onValidateFail', function (info) {
+        emitter.on('onValidateFail', function (info) {
             console.log('\nData validation failed');
         });
-        eventEmitter.on('onRecordSuccess', function (info) {
+        emitter.on('onRecordSuccess', function (info) {
             console.log('\nData record succeed');
             fs.appendFile("./public/logs.txt", '\n' + JSON.stringify(info), function (err) {
                 if (err) {
-                    eventEmitter.emit('onRecordFail', err);
+                    emitter.emit('onRecordFail', err);
                 } else {
                     console.log("The file was saved!");
                 }
             });
         });
-        eventEmitter.on('onRecordFail', function (info) {
+        emitter.on('onRecordFail', function (info) {
             console.log('\nData record failed: ', info);
         });
 
-        
+
     };
 };
 

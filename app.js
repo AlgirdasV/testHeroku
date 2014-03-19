@@ -1,11 +1,10 @@
 /**
  *  Module dependencies.
  */
-var EventEmitter = require('events').EventEmitter;
-eventEmitter = new EventEmitter(),
-Listener = require('./src/lisener.js'),
-listener = new Listener(),
-allowCrossDomain = function(req, res, next) {
+var emitter = require('./src/emitter.js').eventEmitter,
+    Listener = require('./src/lisener.js'),
+    listener = new Listener();
+var allowCrossDomain = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
 	res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
@@ -14,17 +13,16 @@ allowCrossDomain = function(req, res, next) {
 	} else {
 		next();
 	}
-},
+};
 
-fs = require('fs'),
-express = require('express'),
-cors = require('cors'),
-routes = require('./routes'),
-http = require('http'),
-path = require('path'),
-app = express();
+var express = require('express'),
+    cors = require('cors'),
+    routes = require('./routes'),
+    http = require('http'),
+    path = require('path'),
+    app = express();
 
-exports.eventEmitter = eventEmitter;
+
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -55,7 +53,7 @@ app.post('/receiver', function(req, res) {
 	res.json(200, {
 		"success": "success"
 	});
-	eventEmitter.emit('onReceive', req.body.message);
+	emitter.emit('onReceive', req.body.message);
 });
 
 app.post('/register', function(req, res) {
