@@ -1,14 +1,97 @@
-DataCollector
+DataCollector v 0.1.1 2014-03-19
 =============
 
-Backend data collector for ClientRecorder
+##### GENERAL USAGE NOTES
+--------------------------------------
 
+-DataCollector use node and its following packages
+  -express
+  -jade
+  -cors
+  -grunt
+  -schema inspector
+  
+Obviously, they should be supported in order to run and develop DataCollector.
 
-Star with 
+##### INSTALLATION
+--------------------------------------
 
-  npm install 
+Firstly, you need node and node package manager to be installed on you machine, then you should open command line, console, terminal, etc and type fallowing commands:
+```bash
+npm install
+```
+```bash
+node app.js
+```
+That should start your server.
+When developing dont forget to use:
+```bash
+grunt jshing
+```
+which will help you to lint your code.
 
-and then  
+##### FILE SYSTEM STRUCTURE
+--------------------------------------
 
-  node app.js
+Root directory includes following files 
+  -app.js (main app file, that stars server)
+  -Gruntfile.js (it is used for developing purposes only, to lint and test code)
+  -package.jsoin (defines needed packages for node package manager)
+  -.gitignore (makes node modules folder invisible)
+  -README.md (this file)
+  
+In public folder (and its subfolder) is stored ClientRecorder app files and logs.txt file, which provides logs made by Client recorder
 
+routes folder contains index.js which generates index site view
+spec folder contains testing files
+src folder contains source files, which are used by app.js
+views folder contains testing enviroment instance
+
+##### DATACOLLECTOR FEATURES AND KNOW BUGS
+--------------------------------------
+
+Features
+  -Receive post 
+  -Send response to post request
+  -Validate received data
+  -Record received data to logs.txt file
+  
+##### UPDATING CURRENT HEROKU APP INSTANCE
+--------------------------------------
+
+We are using heroku app. In order to uploap new version to heroku you have to be installed heroku toolbelt and then you should login to heroku via
+
+```bash
+heroku login
+```
+
+and entering following information
+email: povilozauras@gmail.com
+passsword: Niutonmetras00 
+
+then you should iniatilize your directory which you would like to upload to heroku by typing these commands
+
+```bash
+git init
+```
+```bash
+git add .
+```
+```bash
+git commit -m "init"
+```
+
+Upload it via
+
+```bash
+git push heroku master
+```
+
+And iniatilize with
+
+```bash
+heroku ps:scale web=1
+```
+```bash
+heroku ps
+```
