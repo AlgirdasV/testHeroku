@@ -12,10 +12,11 @@ var Validator = function() {
                 type: 'string',
                 exec: function(schema, post) {
                     if (post){
-                        var splits = post.split(':'),
-                            userIP = splits[0],
-                            ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-                        if (!userIP.match(ipformat)) {
+                        var splits = post.split('-'),
+                            timeNow = parseInt(splits[0]),
+                            randFirst = splits[1],
+                            randSecond = splits [2];
+                        if(isNaN(timeNow) || timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
                             this.report('IP is not valid ');
                         }
                     }

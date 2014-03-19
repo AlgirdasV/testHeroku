@@ -3,7 +3,9 @@
  */
 var emitter = require('./src/emitter.js').eventEmitter,
     Listener = require('./src/lisener.js'),
-    listener = new Listener();
+    listener = new Listener(),
+    IdGenerator = require('./src/idgenerator.js'),
+    idGenerator = new IdGenerator();
 var allowCrossDomain = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -63,7 +65,7 @@ app.post('/register', function(req, res) {
 	//response shpuld after successfully registered event
 	res.json(200, {
 		"success": "success",
-		"userId": "33.23.33.3"
+		"userId": idGenerator.getUniqueId()
 	});
 });
 
