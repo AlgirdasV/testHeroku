@@ -18,8 +18,10 @@ var Validator = function() {
                             randSecond = splits [2];
                         if(isNaN(timeNow) || randFirst === undefined || randSecond === undefined) {
                             this.report('IP is not valid ');
-                        } else if(timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
+                        } else {
+                            if(timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
                             this.report('IP is not valid ');
+                            }
                         }
                     }
                     else this.report(post+'was undefined');
