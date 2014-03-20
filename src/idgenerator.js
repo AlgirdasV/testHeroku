@@ -9,6 +9,7 @@ var IdGenerator = function() {
 	};
 
 	this.generateId = function() {
+		// hash narsykles, ir pns poto tikrint
 		return Date.now() + '-' + this.randString() + this.randString() + '-' +
 		this.randString();
 		//app.eventEmitter.emit('onGenerated', obj);

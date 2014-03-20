@@ -17,10 +17,10 @@ var Validator = function() {
                             randFirst = splits[1],
                             randSecond = splits [2];
                         if(isNaN(timeNow) || randFirst === undefined || randSecond === undefined) {
-                            this.report('IP is not valid ');
+                            this.report('ID is not valid ');
                         } else {
                             if(timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
-                            this.report('IP is not valid ');
+                            this.report('ID is not valid ');
                             }
                         }
                     }
@@ -124,7 +124,7 @@ var Validator = function() {
     this.removeActionsWithErrors = function(obj, actionsWithErrors) {
         for (var i = 0; i < actionsWithErrors.length; i++) {
             console.log(actionsWithErrors[i]);
-            obj.actions[actionsWithErrors[i]].eventType = 'Unknow';
+            obj.actions[actionsWithErrors[i]].eventType = 'Unknown';
         }
     };
     this.validate = function(object) {
