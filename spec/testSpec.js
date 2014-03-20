@@ -57,7 +57,7 @@ describe('Signup', function() {
 
 	it('returns a 200 OK on valid user signup', function() {
 		return request.post(params, function(err, resp, body) {
-			console.log('fuckas', resp);
+			//console.log('response', resp);
 			expect(resp.statusCode).toEqual(200);
 		});
 	});
