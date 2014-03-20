@@ -16,7 +16,7 @@ Obviously, they should be supported in order to run and develop DataCollector.
 ##### INSTALLATION
 --------------------------------------
 
-Firstly, you need node and node package manager to be installed on you machine, then you should open command line, console, terminal, etc and type fallowing commands:
+Firstly, you need node and node package manager to be installed on you machine, then you should open command line and type fallowing commands:
 ```bash
 npm install
 ```
@@ -26,7 +26,7 @@ node app.js
 That should start your server.
 When developing dont forget to use:
 ```bash
-grunt jshing
+grunt jshint
 ```
 which will help you to lint your code.
 
@@ -35,6 +35,7 @@ which will help you to lint your code.
 
 Root directory includes following files 
   -app.js (main app file, that stars server)
+  -changelog.txt (bug fixes, new and removed features)
   -Gruntfile.js (it is used for developing purposes only, to lint and test code)
   -package.jsoin (defines needed packages for node package manager)
   -.gitignore (makes node modules folder invisible)
@@ -60,28 +61,14 @@ Features
 --------------------------------------
 
 We are using heroku app. In order to uploap new version to heroku you have to be installed heroku toolbelt and then you should login to heroku via
+(request permission at povilozauras@gmail.com)
 
 ```bash
 heroku login
 ```
 
-and entering following information
-email: povilozauras@gmail.com
-passsword: Niutonmetras00 
 
-then you should iniatilize your directory which you would like to upload to heroku by typing these commands
-
-```bash
-git init
-```
-```bash
-git add .
-```
-```bash
-git commit -m "init"
-```
-
-Upload it via
+then you should iniatilize your directory which you would like to upload to heroku upload it via
 
 ```bash
 git push heroku master
