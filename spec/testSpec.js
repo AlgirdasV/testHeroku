@@ -1,22 +1,5 @@
 var request = require('request');
 
-/*describe('validateObject function', function() {
-
-it("should respond with hello world", function(done) {
-request("http://localhost:3000/receiver", function(error, response, body) {
-//console.log('pirmas', response);
-done();
-});
-}, 250); // timeout after 250 ms
-
-it('Server should respond to /', function(done) {
-request.get('http://localhost:3000/receiver', function(response) {
-expect(response.statusCode).toBe(200);
-//console.log('antras', response);
-done();
-});
-});
-});*/
 var data = {
 	userID: "1395268848909-623c167a-2e3f",
 	actions: [{
@@ -41,7 +24,7 @@ var data = {
 };
 var data2 = JSON.stringify(data);
 
-describe('Signup', function() {
+describe('Receiver function', function() {
 
 	var url = 'http://localhost:3000/receiver';
 	var params = null;
@@ -52,13 +35,49 @@ describe('Signup', function() {
 			form: {
 				message: data2
 			}
-		}
+		};
 	});
 
 	it('returns a 200 OK on valid user signup', function() {
 		return request.post(params, function(err, resp, body) {
-			console.log('fuckas', resp);
+			//console.log('response', resp);
 			expect(resp.statusCode).toEqual(200);
+			expect(resp.body.success).toEqual('success');
+			console.log(resp.body);
+		});
+	});
+});
+
+
+describe('Register function', function() {
+
+	var url = 'http://localhost:3000/register';
+	var params = null;
+	var temp1 = 'asd';
+
+	beforeEach(function() {
+		params = {
+			url: url,
+			form: {
+				message: ''
+			}
+		};
+	});
+
+	it('Checks if register returns success', function() {
+		return request.post(params, function(err, resp, body) {
+			expect(resp.statusCode).toEqual(200);
+			expect(resp.success).toEqual('success');
+			temp1 = (JSON.parse(resp.body)).userId;
+			console.log(resp.body);
+		});
+	});
+
+	it('Checks if register returns unique id', function() {
+		return request.post(params, function(err, resp, body) {
+			expect(resp.success).toEqual('success');
+			expect(temp1).not.toBe((JSON.parse(resp.body)).userId);
+			console.log('previous id: ', temp1, 'current id: ', (JSON.parse(resp.body)).userId);
 		});
 	});
 });
