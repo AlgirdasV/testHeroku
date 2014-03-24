@@ -1,10 +1,22 @@
 var validatorHelper = function() {
 	var validateObjectToPass,
 		validateObjectToFail,
-		mockUp;
+		mockUp,
+		action,
+		eventType = [];
 
-	resetMockUp = function() {
+	var resetMockUp = function() {
 		mockUp = {};
+		action = {
+			"timeNow": null,
+			"eventType": null,
+			"documentHeight": null,
+			"documentWidth": null,
+			"elementId": null,
+			"positionX": null,
+			"positionY": null,
+			"url": null
+		};
 		mockUp.userID = '';
 		mockUp.actions = [];
 	};
@@ -15,14 +27,13 @@ var validatorHelper = function() {
 	};
 
 	this.getPassingValidateObj = function() {
-		console.log('atiduoda11', validateObjectToPass);
 		return validateObjectToPass;
 	};
 
 	this.getFailingValidateObj = function() {
-		console.log('atiduoda22', validateObjectToFail);
 		return validateObjectToFail;
 	};
+
 	// THESE SHOULD PASS
 	var setValidObjects = function() {
 		resetMockUp();
