@@ -14,11 +14,12 @@ module.exports = function(grunt) {
         },
         jasmine: {
             pivotal: {
-                src: ['routes/*.js'],
+                src: ['src/*.js'],
                 options: {
                     vendor: ['vendor/*.js', 'node_modules/underscore/*.js'],
                     specs: 'spec/*Spec.js',
-                    helpers: 'spec/*Helper.js'
+                    helpers: 'spec/*Helper.js',
+                    keepRunner: true
                 }
             }
         },

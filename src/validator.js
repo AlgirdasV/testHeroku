@@ -6,25 +6,33 @@ var Validator = function() {
 
     var objectSchema = {
         type: 'object',
-        strict: true,
+        strict: true, 
         properties: {
             userID: {
                 type: 'string',
                 exec: function(schema, post) {
-                    if (post){
+                    if (post) {  
                         var splits = post.split('-'),
                             timeNow = parseInt(splits[0]),
                             randFirst = splits[1],
-                            randSecond = splits [2];
-                        if(isNaN(timeNow) || randFirst === undefined || randSecond === undefined) {
+                            randSecond = splits[2];
+
+                        if (isNaN(timeNow) || randFirst === undefined || randSecond === undefined) {
                             this.report('ID is not valid ');
+                            //console.log('fail');
+                            //return false;
                         } else {
-                            if(timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
-                            this.report('ID is not valid ');
+                            if (timeNow > Date.now() || randFirst.length != 8 || randSecond.length != 4) {
+                                this.report('ID is not valid ');
+                                //console.log('fail');
+                                //return false;
                             }
                         }
+                    } else {
+                        this.report(post + 'was undefined');
+                        //console.log('fail');
+                        //return false;
                     }
-                    else this.report(post+'was undefined');
                 }
             },
             actions: {
