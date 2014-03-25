@@ -3,7 +3,7 @@ var validatorHelper = function() {
 		validateObjectToFail,
 		mockUp,
 		action,
-		eventType = [];
+		eventType = ['click', 'dblclick', 'focus', 'dragstart', 'drop', 'scroll', 'change', 'resize', 'startscreen'];
 	// click		: timeNow, eventType, NULL, NULL, elementId, positionX, positionY, url
 	// dblclick		: timeNow, eventType, NULL, NULL, elementId, positionX, positionY, NULL
 	// focus		: timeNow, eventType, NULL, NULL, elementId, positionX, positionY, NULL
@@ -13,8 +13,6 @@ var validatorHelper = function() {
 	// change		: timeNow, eventType, NULL, NULL, elementId, NULL, NULL, NULL
 	// resize		: timeNow, eventType, DW, DH, NULL, NULL, NULL, NULL
 	// startscreen	: timeNow, eventType, DW, DH, NULL, NULL, NULL, url
-
-	var eventType = ['click', 'dblclick', 'focus', 'dragstart', 'drop', 'scroll', 'change', 'resize', 'startscreen'];
 
 	var resetMockUp = function() {
 		mockUp = {};
