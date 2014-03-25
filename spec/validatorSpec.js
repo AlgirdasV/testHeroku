@@ -1,7 +1,7 @@
 describe('Validator', function() {
     // require
     var Validator = require('../src/validator.js'),
-        validatorius = new Validator(),
+        validator = new Validator(),
         ValidatorHelper = require('./validatorHelper.js'),
         validatorHelper = new ValidatorHelper();
     validatorHelper.init();
@@ -23,35 +23,45 @@ describe('Validator', function() {
 
     // userID
     describe('validateObject function', function() {
+        var i = 1;
+        beforeEach(function() {
+            spyOn(validator, 'removeActionsWithErrors');
+        });
+
+        afterEach(function() {
+            validator.removeActionsWithErrors.reset;
+            console.log('test nb: ' + i + ' number of errors in actions: ' + validator.removeActionsWithErrors.callCount);
+            i++;
+        });
 
         it('validates correct object', function() {
             var arrayToTestArray = validatorHelper.getPassingValidateObj();
-            //console.log('start', arrayToTestArray);
-
             for (var i = 0; i < arrayToTestArray.length; i++) {
-                var objToTest = validatorius.validateObject(arrayToTestArray[i]);
-                //console.log('tinka', objToTest);
-                expect(objToTest.valid).toBeTruthy();
+                var objToTest = validator.validate(arrayToTestArray[i]);
             }
+            expect(validator.removeActionsWithErrors.callCount).toBe(0);
         });
 
         it('validates incorrect object', function() {
-            var arrayToTestArray = validatorHelper.getFailingValidateObj();
-            //console.log('start', arrayToTestArray);
+            var arrayToTestArray = validatorHelper.getFailingValidateObj(),
+                numberOfFailedId = 0;
 
             for (var i = 0; i < arrayToTestArray.length; i++) {
-                var objToTest = validatorius.validateObject(arrayToTestArray[i]);
-                //console.log('tinka', objToTest);
-                expect(objToTest.valid).not.toBeTruthy();
+                var objToTest = validator.validate(arrayToTestArray[i]);
+                var objToTest2 = validator.validateObject(arrayToTestArray[i]);
+                if (objToTest2.valid !== undefined && objToTest2.valid === false)
+                    numberOfFailedId++;
             }
+            //console.log('numberOfFailedId',numberOfFailedId, 'arrayToTestArray.length', arrayToTestArray.length);
+            expect(validator.removeActionsWithErrors.callCount).toBe(arrayToTestArray.length - numberOfFailedId);
         });
 
-        it('should not throw error when userIP is undefined', function() {
+        /*it('should not throw error when userIP is undefined', function() {
             expect(function() {
-                validatorius.validateObject(objectWithoutUserID);
+                validator.validateObject(objectWithoutUserID);
             }).not.toThrow();
 
-        });
+        });*/
 
     });
 });
