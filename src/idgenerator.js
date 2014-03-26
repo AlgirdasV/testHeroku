@@ -9,6 +9,7 @@ var IdGenerator = function() {
 	};
 
 	this.generateId = function(head, body) {
+		console.log('head',head);
 		var os = "Unknown",
 			cookieId,
 			browserName,

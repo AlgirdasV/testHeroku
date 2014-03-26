@@ -6,7 +6,7 @@ describe('Validator', function() {
         validatorHelper = new ValidatorHelper();
     validatorHelper.init();
 
-    var objectWithoutUserID = { 
+    var objectWithoutUserID = {
         actions: []
     };
     // an example, not a general case
