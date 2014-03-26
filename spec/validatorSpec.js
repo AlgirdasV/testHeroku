@@ -37,6 +37,8 @@ describe('Validator', function() {
             var arrayToTestArray = validatorHelper.getPassingValidateObj();
             for (var i = 0; i < arrayToTestArray.length; i++) {
                 var objToTest = validator.validate(arrayToTestArray[i]);
+                var objToTest2 = validator.validateObject(arrayToTestArray[i]);
+                expect(objToTest2.valid).toBe(true);
             }
             expect(validator.removeActionsWithErrors.callCount).toBe(0);
         });
@@ -48,7 +50,7 @@ describe('Validator', function() {
             for (var i = 0; i < arrayToTestArray.length; i++) {
                 var objToTest = validator.validate(arrayToTestArray[i]);
                 var objToTest2 = validator.validateObject(arrayToTestArray[i]);
-                if (objToTest2.valid !== undefined && objToTest2.valid === false){
+                if (objToTest2.valid !== undefined && objToTest2.valid === false) {
                     numberOfFailedId++;
                 }
             }
