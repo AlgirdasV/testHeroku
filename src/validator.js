@@ -1,45 +1,8 @@
-var inspector = require('schema-inspector'),
-    _ = require('underscore')._,
-    emitter = require('./emitter.js').eventEmitter;
-    idgenerator = require('./idgenerator.js'),
-    genetaror = new  idgenerator();
+/*var Globals = require('./src/global/globals.js'),
+    globals = new Globals(),
+    dataEye = globals.dataEye;*/
 
 var Validator = function() {
-
-    var objectSchema = {
-        type: 'object',
-        strict: true,
-        properties: {
-            userID: {
-                type: 'array',
-                exec: function(schema, post) {
-                    if (post) {
-                        var head = post[1],
-                            info = genetaror.decode(post[0]),
-                            splits = info.split('_'),
-                            id = parseInt(splits[0]),
-                            fullBrowser = splits[1],
-                            os = splits[2];
-                            lang = splits[3];
-                            time = splits[4];
-                        if (time === undefined || id === undefined || fullBrowser === undefined || os === undefined || lang === undefined) {
-                            this.report('ID is not valid ');
-                        } else {
-                            //FIX TODO add check by browser and time
-                            if (os !== genetaror.genOs(head['user-agent']) || !genetaror.check(id)) {
-                                this.report('ID is not valid ');
-                            }
-                        }
-                    } else {
-                        this.report(post + 'was undefined');
-                    }
-                }
-            },
-            actions: {
-                type: 'array'
-            }
-        }
-    };
 
     var eventsWithPosition = ['click', 'dblclick', 'focus', 'dragstart', 'drop', 'scroll', 'change'],
         eventsWithScreenSize = ['resize', 'startscreen'],
@@ -52,9 +15,9 @@ var Validator = function() {
         }
     }
 
-    function validatePosition(schema, post) {
+    this.validatePosition = function(schema, post) {
         var self = this;
-        if (_.contains(eventsWithPosition, this.origin.eventType)) {
+        if (dataEye._.contains(eventsWithPosition, this.origin.eventType)) {
             if (post < 0) {
                 this.report(this.origin.eventType + ' event position must be >=0');
             }
@@ -63,9 +26,9 @@ var Validator = function() {
         }
     }
 
-    function validateScreenSize(schema, post) {
+    this.validateScreenSize = function(schema, post) {
         var self = this;
-        if (_.contains(eventsWithScreenSize, this.origin.eventType)) {
+        if (dataEye._.contains(eventsWithScreenSize, this.origin.eventType)) {
             if (post <= 0) {
                 this.report(this.origin.eventType + ' event screen size must be >0');
             }
@@ -74,9 +37,9 @@ var Validator = function() {
         }
     }
 
-    function validateElementID(schema, post) {
+    this.validateElementID = function(schema, post) {
         var self = this;
-        if (_.contains(eventsWithElementID, this.origin.eventType)) {
+        if (dataEye._.contains(eventsWithElementID, this.origin.eventType)) {
             if (typeof post !== 'string') {
                 this.report(this.origin.eventType + ' event element id must be of string type');
             }
@@ -85,9 +48,9 @@ var Validator = function() {
         }
     }
 
-    function validateUrl(schema, post) {
+    this.validateUrl = function(schema, post) {
         var self = this;
-        if (_.contains(eventsWithUrl, this.origin.eventType)) {
+        if (dataEye._.contains(eventsWithUrl, this.origin.eventType)) {
             if (typeof post !== 'string') {
                 this.report(this.origin.eventType + ' event element url must be of string type');
             }
@@ -102,13 +65,14 @@ var Validator = function() {
             obj.actions[actionsWithErrors[i]].eventType = 'Unknown';
         }
     };
+
     this.validate = function(object, info2) {
         var objectResult = this.validateObject(object, info2);
         // var objectResult = inspector.validate(objectSchema, object);
         var actionsWithErrors = [];
         if (!objectResult.valid) {
             console.log('Validation failed');
-            emitter.emit('onValidateFail', object);
+            dataEye.emitter.emit('onValidateFail', object);
 
         } else {
             var actions = object.actions;
@@ -121,17 +85,18 @@ var Validator = function() {
 
             }
             if (actionsWithErrors.length === 0) {
-                emitter.emit('onValidateSuccess', object);
+                dataEye.emitter.emit('onValidateSuccess', object);
             } else {
                 console.log('validated with errors, removing bad actions...');
                 this.removeActionsWithErrors(object, actionsWithErrors);
-                emitter.emit('onValidateSuccess', object);
+                dataEye.emitter.emit('onValidateSuccess', object);
             }
         }
 
     };
+
     this.validateAction = function(action) {
-        var result = inspector.validate(schema, action);
+        var result = dataEye.inspector.validate(dataEye.schemas.schema, action);
         if (result && result.format) {
             console.log('event ');
             console.dir(action);
@@ -150,41 +115,9 @@ var Validator = function() {
     this.validateObject = function(object, info2) {
         var temp = object.userID;
         object.userID = [temp, info2];
-        return inspector.validate(objectSchema, object);
+        return dataEye.inspector.validate(dataEye.schemas.objectSchema, object);
     };
 
-    var schema = {
-        type: 'object',
-        strict: true,
-        properties: {
-            eventType: {
-                type: 'string'
-            },
-            positionX: {
-                exec: validatePosition
-            },
-            positionY: {
-                exec: validatePosition
-            },
-            documentHeight: {
-                exec: validateScreenSize
-            },
-            documentWidth: {
-                exec: validateScreenSize
-            },
-            elementId: {
-                exec: validateElementID
-            },
-            timeNow: {
-                type: 'number',
-                /*lt: Date.now() */
-                gt: 0
-            },
-            url: {
-                exec: validateUrl
-            }
-        }
-    };
 };
 
 module.exports = Validator;

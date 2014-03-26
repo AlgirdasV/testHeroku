@@ -1,11 +1,9 @@
+var Globals = require('./src/global/globals.js'),
+	globals = new Globals(),
+	dataEye = globals.init();
 /**
  *  Module dependencies.
  */
-var emitter = require('./src/emitter.js').eventEmitter,
-    Listener = require('./src/lisener.js'),
-    listener = new Listener(),
-    IdGenerator = require('./src/idgenerator.js'),
-    idGenerator = new IdGenerator();
 var allowCrossDomain = function(req, res, next) {
 	res.header('Access-Control-Allow-Origin', '*');
 	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -18,11 +16,11 @@ var allowCrossDomain = function(req, res, next) {
 };
 
 var express = require('express'),
-    cors = require('cors'),
-    routes = require('./routes'),
-    http = require('http'),
-    path = require('path'),
-    app = express();
+	cors = require('cors'),
+	routes = require('./routes'),
+	http = require('http'),
+	path = require('path'),
+	app = express();
 
 
 // all environments
@@ -47,7 +45,6 @@ if ('development' === app.get('env')) {
 	app.use(express.errorHandler());
 }
 
-listener.init();
 app.get('/', routes.index);
 app.post('/receiver', function(req, res) {
 	//console.log("post received:", req.body.message);
@@ -56,7 +53,7 @@ app.post('/receiver', function(req, res) {
 		"success": "success"
 	});
 	//req.body.message.head = req.headers;
-	emitter.emit('onReceive', req);
+	dataEye.emitter.emit('onReceive', req);
 });
 
 app.post('/register', function(req, res) {

@@ -1,12 +1,14 @@
+/*var Globals = require('./src/global/globals.js'),
+	globals = new Globals(),
+	dataEye = globals.dataEye;*/
 // var app = require('../app');
-var emitter = require('./emitter.js').eventEmitter;
 
 var Parser = function() {
 
 	this.parseObject = function(JSONstringified) {
 		var head = JSONstringified.headers,
 			obj = JSON.parse(JSONstringified.body.message);
-		emitter.emit('onParse', obj, head);
+		dataEye.emitter.emit('onParse', obj, head);
 	};
 
 };
