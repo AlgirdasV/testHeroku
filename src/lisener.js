@@ -1,10 +1,6 @@
-/*var Globals = require('./src/global/globals.js'),
-    globals = new Globals(),
-    dataEye = globals.dataEye;*/
-// var app = require('../app');
-var fs = require('fs');
-
 var Listener = function() {
+
+    var _fs = require('fs');
 
     this.init = function() {
 
@@ -31,7 +27,7 @@ var Listener = function() {
 
         dataEye.emitter.on('onRecordSuccess', function(info) {
             console.log('\nData record succeed');
-            fs.appendFile("./public/logs.txt", '\n' + JSON.stringify(info), function(err) {
+            _fs.appendFile("./public/logs.txt", '\n' + JSON.stringify(info), function(err) {
                 if (err) {
                     dataEye.emitter.emit('onRecordFail', err);
                 } else {
@@ -42,7 +38,7 @@ var Listener = function() {
 
         dataEye.emitter.on('onRecordFail', function(info) {
             console.log('\nData record failed: ', info);
-            fs.appendFile("./public/faillogs.txt", '\n' + JSON.stringify(info), function(err) {
+            _fs.appendFile("./public/faillogs.txt", '\n' + JSON.stringify(info), function(err) {
                 console.log("The failed recod file was saved!");
             });
         });

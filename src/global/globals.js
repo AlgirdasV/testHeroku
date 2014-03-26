@@ -1,6 +1,5 @@
 var Globals = function() {
 	dataEye = {};
-	//var labas =require('../lisener.js');
 
 	this.init = function() {
 		dataEye.EventEmitter = require('events').EventEmitter; //////////////////////////////
@@ -21,6 +20,7 @@ var Globals = function() {
 		dataEye.listener.init();
 		return dataEye;
 	};
+	
 };
 
 module.exports = Globals;

@@ -1,7 +1,3 @@
-/*var Globals = require('./src/global/globals.js'),
-    globals = new Globals(),
-    dataEye = globals.dataEye;*/
-
 var Schemas = function() {
 
     this.objectSchema = {
@@ -12,14 +8,15 @@ var Schemas = function() {
                 type: 'array',
                 exec: function(schema, post) {
                     if (post) {
+
                         var head = post[1],
                             info = dataEye.idGenerator.decode(post[0]),
                             splits = info.split('_'),
                             id = parseInt(splits[0]),
                             fullBrowser = splits[1],
-                            os = splits[2];
-                        lang = splits[3];
-                        time = splits[4];
+                            os = splits[2],
+                            lang = splits[3],
+                            time = splits[4];
                         if (time === undefined || id === undefined || fullBrowser === undefined || os === undefined || lang === undefined) {
                             this.report('ID is not valid ');
                         } else {

@@ -1,6 +1,3 @@
-/*var Globals = require('./src/global/globals.js'),
-	globals = new Globals(),
-	dataEye = globals.dataEye;*/
 var IdGenerator = function() {
 	'use strict';
 	var base64 = exports;
@@ -75,16 +72,16 @@ var IdGenerator = function() {
 
 	this.genOs = function(head) {
 		var os = "Unknown";
-		if (head.indexOf("Win") != -1) {
+		if (head.indexOf("Win") !== -1) {
 			os = "Windows";
 		}
-		if (head.indexOf("Mac") != -1) {
+		if (head.indexOf("Mac") !== -1) {
 			os = "MacOS";
 		}
-		if (head.indexOf("X11") != -1) {
+		if (head.indexOf("X11") !== -1) {
 			os = "UNIX";
 		}
-		if (head.indexOf("Linux") != -1) {
+		if (head.indexOf("Linux") !== -1) {
 			os = "Linux";
 		}
 		return os;

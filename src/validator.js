@@ -1,15 +1,11 @@
-/*var Globals = require('./src/global/globals.js'),
-    globals = new Globals(),
-    dataEye = globals.dataEye;*/
-
 var Validator = function() {
 
-    var eventsWithPosition = ['click', 'dblclick', 'focus', 'dragstart', 'drop', 'scroll', 'change'],
-        eventsWithScreenSize = ['resize', 'startscreen'],
-        eventsWithElementID = ['click', 'focus', 'dblclick', 'dragstart', 'drop', 'change'],
-        eventsWithUrl = ['click', 'startscreen'];
+    var _eventsWithPosition = ['click', 'dblclick', 'focus', 'dragstart', 'drop', 'scroll', 'change'],
+        _eventsWithScreenSize = ['resize', 'startscreen'],
+        _eventsWithElementID = ['click', 'focus', 'dblclick', 'dragstart', 'drop', 'change'],
+        _eventsWithUrl = ['click', 'startscreen'];
 
-    function shouldBeNull(self, post) {
+    function _shouldBeNull(self, post) {
         if (post !== null) {
             self.report('of event ' + self.origin.eventType + ' must be null');
         }
@@ -17,47 +13,47 @@ var Validator = function() {
 
     this.validatePosition = function(schema, post) {
         var self = this;
-        if (dataEye._.contains(eventsWithPosition, this.origin.eventType)) {
+        if (dataEye._.contains(_eventsWithPosition, this.origin.eventType)) {
             if (post < 0) {
                 this.report(this.origin.eventType + ' event position must be >=0');
             }
         } else {
-            shouldBeNull(self, post);
+            _shouldBeNull(self, post);
         }
-    }
+    };
 
     this.validateScreenSize = function(schema, post) {
         var self = this;
-        if (dataEye._.contains(eventsWithScreenSize, this.origin.eventType)) {
+        if (dataEye._.contains(_eventsWithScreenSize, this.origin.eventType)) {
             if (post <= 0) {
                 this.report(this.origin.eventType + ' event screen size must be >0');
             }
         } else {
-            shouldBeNull(self, post);
+            _shouldBeNull(self, post);
         }
-    }
+    };
 
     this.validateElementID = function(schema, post) {
         var self = this;
-        if (dataEye._.contains(eventsWithElementID, this.origin.eventType)) {
+        if (dataEye._.contains(_eventsWithElementID, this.origin.eventType)) {
             if (typeof post !== 'string') {
                 this.report(this.origin.eventType + ' event element id must be of string type');
             }
         } else {
-            shouldBeNull(self, post);
+            _shouldBeNull(self, post);
         }
-    }
+    };
 
     this.validateUrl = function(schema, post) {
         var self = this;
-        if (dataEye._.contains(eventsWithUrl, this.origin.eventType)) {
+        if (dataEye._.contains(_eventsWithUrl, this.origin.eventType)) {
             if (typeof post !== 'string') {
                 this.report(this.origin.eventType + ' event element url must be of string type');
             }
         } else {
-            shouldBeNull(self, post);
+            _shouldBeNull(self, post);
         }
-    }
+    };
 
     this.removeActionsWithErrors = function(obj, actionsWithErrors) {
         for (var i = 0; i < actionsWithErrors.length; i++) {
@@ -114,6 +110,7 @@ var Validator = function() {
 
     this.validateObject = function(object, info2) {
         var temp = object.userID;
+        console.log('temp', temp);
         object.userID = [temp, info2];
         return dataEye.inspector.validate(dataEye.schemas.objectSchema, object);
     };

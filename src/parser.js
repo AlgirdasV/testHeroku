@@ -1,8 +1,3 @@
-/*var Globals = require('./src/global/globals.js'),
-	globals = new Globals(),
-	dataEye = globals.dataEye;*/
-// var app = require('../app');
-
 var Parser = function() {
 
 	this.parseObject = function(JSONstringified) {
