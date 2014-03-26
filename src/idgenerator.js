@@ -9,8 +9,7 @@ var IdGenerator = function() {
 	};
 
 	this.generateId = function(head, body) {
-		console.log('head',head);
-		var os = "Unknown",
+		var os,
 			cookieId,
 			browserName,
         	browserFullName,
@@ -29,15 +28,12 @@ var IdGenerator = function() {
         };
         browserName = M[0];
         browserFullName = M.join(" ");
+        os = this.genOs(head['user-agent']);
 		lang = head['accept-language'];     
-        if (head['user-agent'].indexOf("Win")!=-1) os ="Windows"; 
-        if (head['user-agent'].indexOf("Mac")!=-1) os ="MacOS";
-        if (head['user-agent'].indexOf("X11")!=-1) os ="UNIX";
-        if (head['user-agent'].indexOf("Linux")!=-1) os ="Linux";
-		cookieId = this.getRealId() + '-' + browserFullName + '-' + os + '-' + body.w  + 'x' + body.h + '-' + lang + '-' + body.t ;
-		console.log(cookieId);
+       
+		cookieId = this.getRealId() + '_' + browserFullName + '_' + os + '_' + body.w  + 'x' + body.h + '_' + lang + '_' + body.t ;
 	    cookieId = this.encode(cookieId);
-		cookieId = this.randString()+ this.randString() +this.randString()+cookieId;
+		cookieId = this.randChar() +this.randChar()+cookieId;
 
 		return cookieId;
 		app.eventEmitter.emit('onGenerated', obj);
@@ -48,7 +44,7 @@ var IdGenerator = function() {
 	};
 		 
 	this.decode = function (encoded) {
-		encoded = encoded.substr(3);
+		encoded = encoded.substr(2);
 		return new Buffer(encoded || '', 'base64').toString('utf8');
 	};
 
@@ -57,19 +53,28 @@ var IdGenerator = function() {
 	};
 
 	//check if user id is valid and it is recorded to bd 
-	this.check = function(id , reqh) {
+	this.check = function(id) {
 		// FIX TODO check in database
-		if(!bd.isValidCookie(data)){
+		/*if(!bd.isValidCookie(data)){
 			return false
-		}
+		}*/
 		return true;
 	};
 
-	this.randString = function() {
-		return Math.floor((1 + Math.random()) * 0x10000)
-             .toString(16)
-             .substring(1);
+	this.randChar = function() {
+		var chars = "0123456789abcdefghijklmnopqurstuvwxyzABCDEFGHIJKLMNOPQURSTUVWXYZ";
+    	return chars.substr( Math.floor(Math.random() * 62), 1);
 	};
+
+
+	this.genOs = function(head){
+		var os = "Unknown";
+		if (head.indexOf("Win")!=-1) os ="Windows"; 
+        if (head.indexOf("Mac")!=-1) os ="MacOS";
+        if (head.indexOf("X11")!=-1) os ="UNIX";
+        if (head.indexOf("Linux")!=-1) os ="Linux";
+        return os;
+	}
 
 };
 

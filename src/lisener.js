@@ -11,12 +11,12 @@ var Listener = function () {
     this.init = function () {
 
         emitter.on('onReceive', function (info) {
-            console.log('\nData received', info);
+            console.log('\nData received', info.body.message);
             parser.parseObject(info);
         });
-        emitter.on('onParse', function (info) {
+        emitter.on('onParse', function (info, info2) {
             console.log('\nData parsed');
-            validator.validate(info);
+            validator.validate(info, info2);
         });
         emitter.on('onValidateSuccess', function (info) {
             console.log('\nData validation succeed', info);

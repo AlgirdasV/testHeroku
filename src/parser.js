@@ -4,12 +4,9 @@ var emitter = require('./emitter.js').eventEmitter;
 var Parser = function() {
 
 	this.parseObject = function(JSONstringified) {
-		var obj = this.jsonParser(JSONstringified);
-		emitter.emit('onParse', obj);
-	};
-
-	this.jsonParser = function(JSONstringified) {
-		return JSON.parse(JSONstringified);
+		var head = JSONstringified.headers,
+			obj = JSON.parse(JSONstringified.body.message);
+		emitter.emit('onParse', obj, head);
 	};
 
 };

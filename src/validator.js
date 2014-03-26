@@ -1,6 +1,8 @@
 var inspector = require('schema-inspector'),
     _ = require('underscore')._,
     emitter = require('./emitter.js').eventEmitter;
+    idgenerator = require('./idgenerator.js'),
+    genetaror = new  idgenerator();
 
 var Validator = function() {
 
@@ -9,18 +11,22 @@ var Validator = function() {
         strict: true,
         properties: {
             userID: {
-                type: 'string',
+                type: 'array',
                 exec: function(schema, post) {
                     if (post) {
-                        var splits = post.split('-'),
-                            timeNow = parseInt(splits[0]),
-                            randFirst = splits[1],
-                            randSecond = splits[2];
-
-                        if (isNaN(timeNow) || randFirst === undefined || randSecond === undefined) {
+                        var head = post[1],
+                            info = genetaror.decode(post[0]),
+                            splits = info.split('_'),
+                            id = parseInt(splits[0]),
+                            fullBrowser = splits[1],
+                            os = splits[2];
+                            lang = splits[3];
+                            time = splits[4];
+                        if (time === undefined || id === undefined || fullBrowser === undefined || os === undefined || lang === undefined) {
                             this.report('ID is not valid ');
                         } else {
-                            if (timeNow > Date.now() || randFirst.length !== 8 || randSecond.length !== 4) {
+                            //FIX TODO add check by browser and time
+                            if (os !== genetaror.genOs(head['user-agent']) || !genetaror.check(id)) {
                                 this.report('ID is not valid ');
                             }
                         }
@@ -96,8 +102,8 @@ var Validator = function() {
             obj.actions[actionsWithErrors[i]].eventType = 'Unknown';
         }
     };
-    this.validate = function(object) {
-        var objectResult = this.validateObject(object);
+    this.validate = function(object, info2) {
+        var objectResult = this.validateObject(object, info2);
         // var objectResult = inspector.validate(objectSchema, object);
         var actionsWithErrors = [];
         if (!objectResult.valid) {
@@ -141,7 +147,9 @@ var Validator = function() {
 
     };
 
-    this.validateObject = function(object) {
+    this.validateObject = function(object, info2) {
+        var temp = object.userID;
+        object.userID = [temp, info2];
         return inspector.validate(objectSchema, object);
     };
 

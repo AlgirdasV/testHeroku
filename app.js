@@ -55,7 +55,8 @@ app.post('/receiver', function(req, res) {
 	res.json(200, {
 		"success": "success"
 	});
-	emitter.emit('onReceive', req.body.message);
+	//req.body.message.head = req.headers;
+	emitter.emit('onReceive', req);
 });
 
 app.post('/register', function(req, res) {
