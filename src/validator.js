@@ -110,7 +110,6 @@ var Validator = function() {
 
     this.validateObject = function(object, info2) {
         var temp = object.userID;
-        console.log('temp', temp);
         object.userID = [temp, info2];
         return dataEye.inspector.validate(dataEye.schemas.objectSchema, object);
     };
