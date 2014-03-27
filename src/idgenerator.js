@@ -40,7 +40,7 @@ var IdGenerator = function() {
 
 		
 		return cookieId;
-		//dataEye.eventEmitter.emit('onGenerated', cookieId);
+		//dataEye.emitter.emit('onRegisterDone', cookieId);
 	};
 
 	this.encode = function(unencoded) {

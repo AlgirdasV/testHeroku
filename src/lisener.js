@@ -43,6 +43,17 @@ var Listener = function() {
             });
         });
 
+        /*dataEye.emitter.on('onRegisterInit', function(info) {
+            dataEye.idGenerator.getUniqueId(info);
+        });
+
+        dataEye.emitter.on('onRegisterDone', function(info) {
+            res.json(200, {
+                'success': 'success',
+                'userId': info
+            });
+        });*/
+
     };
 };
 

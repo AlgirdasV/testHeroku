@@ -7,7 +7,7 @@ var Schemas = function() {
             userID: {
                 type: 'array',
                 exec: function(schema, post) {
-                    if (post) {
+                    if (post && post.length === 2 && post[0] !== undefined && post[1] !== undefined) {
 
                         var head = post[1],
                             info = dataEye.idGenerator.decode(post[0]),
@@ -20,8 +20,8 @@ var Schemas = function() {
                         if (time === undefined || id === undefined || fullBrowser === undefined || os === undefined || lang === undefined) {
                             this.report('ID is not valid ');
                         } else {
-                            //FIX TODO add check by browser and time
-                            if (os !== dataEye.idGenerator.genOs(head['user-agent']) || !dataEye.idGenerator.check(id)) {
+                            //FIX TODO add check by browser
+                            if ((Date.now() < time) || os !== dataEye.idGenerator.genOs(head['user-agent']) || !dataEye.idGenerator.check(id)) {
                                 this.report('ID is not valid ');
                             }
                         }

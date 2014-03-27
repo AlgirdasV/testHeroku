@@ -61,6 +61,7 @@ app.post('/register', function(req, res) {
 	//FIX TODO get unique Id for user
 	//eventEmitter.emit('onRegister', req.body.message);
 	//response shpuld after successfully registered event
+	//dataEye.emitter.emit('onRegisterInit', req);
 	res.json(200, {
 		'success': 'success',
 		'userId': dataEye.idGenerator.getUniqueId(req)
