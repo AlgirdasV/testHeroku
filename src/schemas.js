@@ -21,7 +21,7 @@ var Schemas = function() {
                             this.report('ID is not valid ');
                         } else {
                             //FIX TODO add check by browser and time
-                            if (os !== genetaror.genOs(head['user-agent']) || !genetaror.check(id)) {
+                            if (os !== dataEye.idGenerator.genOs(head['user-agent']) || !dataEye.idGenerator.check(id)) {
                                 this.report('ID is not valid ');
                             }
                         }

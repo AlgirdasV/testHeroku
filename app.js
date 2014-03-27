@@ -63,7 +63,7 @@ app.post('/register', function(req, res) {
 	//response shpuld after successfully registered event
 	res.json(200, {
 		'success': 'success',
-		'userId': idGenerator.getUniqueId(req)
+		'userId': dataEye.idGenerator.getUniqueId(req)
 	});
 });
 

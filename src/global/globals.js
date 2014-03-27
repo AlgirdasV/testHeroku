@@ -12,7 +12,6 @@ var Globals = function() {
 		dataEye.parser = new dataEye.ParserModule();
 		dataEye.ValidatorModule = require('../validator.js');
 		dataEye.validator = new dataEye.ValidatorModule();
-
 		dataEye.inspector = require('schema-inspector');
 		dataEye._ = require('underscore')._;
 		dataEye.Schemas = require('../schemas.js');

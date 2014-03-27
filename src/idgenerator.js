@@ -38,8 +38,9 @@ var IdGenerator = function() {
 		cookieId = this.encode(cookieId);
 		cookieId = this.randChar() + this.randChar() + cookieId;
 
-		dataEye.eventEmitter.emit('onGenerated', obj);
-		return cookieId;/////////?
+		
+		return cookieId;
+		//dataEye.eventEmitter.emit('onGenerated', cookieId);
 	};
 
 	this.encode = function(unencoded) {
@@ -47,6 +48,7 @@ var IdGenerator = function() {
 	};
 
 	this.decode = function(encoded) {
+		console.log(encoded);
 		encoded = encoded.substr(2);
 		return new Buffer(encoded || '', 'base64').toString('utf8');
 	};
