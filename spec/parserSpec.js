@@ -1,17 +1,11 @@
 describe('Parser', function() {
-    // require
-    var JSONObject,
-        JSONstringified,
-        Parser = require('../src/parser.js'),
-        parser = new Parser(),
-        ValidatorHelper = require('./ValidatorHelper.js'),
-        validatorHelper = new ValidatorHelper();
-        // validate = require('../routes/validator'),
-        // validator = new validate();
 
-    beforeEach(function() {
-
-        JSONObject = {
+    var Globals = require('../src/global/globals.js'),
+        globals = new Globals(),
+        dataEye = globals.init(),
+        JSONObject = {},
+        JSONstringified = {},
+        JSONUserInfo = {
             userID: 'asdfas',
             actions: [{
                 synced: true,
@@ -22,26 +16,32 @@ describe('Parser', function() {
                 elementId: ''
             }]
         };
-        JSONstringified = JSON.stringify(JSONObject);
+
+    beforeEach(function() {
+        JSONObject.headers = 'headers';
+        JSONObject.body = {};
+        JSONstringified = JSON.stringify(JSONUserInfo);
+        JSONObject.body.message = JSONstringified;
     });
+
     afterEach(function() {
-        // parser = undefined;
-        JSONObject = undefined;
-        JSONstringified = undefined;
+        JSONObject = {};
+        JSONstringified = {};
     });
+
     describe('parseObject function', function() {
+
         it('calls jsonParser', function() {
-            var spyEvent = spyOn(parser, "jsonParser");
-            // parser.jsonParser(JSONstringified);.and.callThrough()
-            parser.parseObject(JSONObject);
+            var spyEvent = spyOn(dataEye.emitter, 'emit');
+            dataEye.parser.parseObject(JSONObject);
             expect(spyEvent).toHaveBeenCalled();
         });
 
     });
 
-    describe('jsonParser function', function() {
+    describe('JSON parse function', function() {
         it('parses JSON string to object', function() {
-            expect(parser.jsonParser(JSONstringified)).toEqual(JSONObject);
+            expect(JSON.parse(JSONstringified)).toEqual(JSONUserInfo);
         });
 
     });

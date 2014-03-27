@@ -1,7 +1,8 @@
 describe('Validator', function() {
     // require
-    var Validator = require('../src/validator.js'),
-        validator = new Validator(),
+    var Globals = require('../src/global/globals.js'),
+        globals = new Globals(),
+        dataEye = globals.init(),
         ValidatorHelper = require('./validatorHelper.js'),
         validatorHelper = new ValidatorHelper();
     validatorHelper.init();
@@ -21,49 +22,48 @@ describe('Validator', function() {
     // });
 
 
-    describe('validateObject function', function() {
-        var i = 1;
-        beforeEach(function() {
-            spyOn(validator, 'removeActionsWithErrors');
-        });
+    var i = 1;
+    beforeEach(function() {
+        spyOn(dataEye.validator, 'removeActionsWithErrors');
+        spyOn(dataEye.emitter, 'emit');
+    });
 
-        afterEach(function() {
-            console.log('test nb: ' + i + ' number of errors in actions: ' + validator.removeActionsWithErrors.callCount);
-            i++;
-            validator.removeActionsWithErrors.reset();
-        });
+    afterEach(function() {
+        console.log('test nb: ' + i + ' number of errors in actions: ' + validator.removeActionsWithErrors.callCount);
+        i++;
+        dataEye.validator.removeActionsWithErrors.reset();
+    });
 
-        it('validates correct object', function() {
-            var arrayToTestArray = validatorHelper.getPassingValidateObj();
-            for (var i = 0; i < arrayToTestArray.length; i++) {
-                var objToTest = validator.validate(arrayToTestArray[i]);
-                var objToTest2 = validator.validateObject(arrayToTestArray[i]);
-                expect(objToTest2.valid).toBe(true);
+    it('validates correct object', function() {
+        var arrayToTestArray = validatorHelper.getPassingValidateObj();
+        for (var i = 0; i < arrayToTestArray.length; i++) {
+            var objToTest = dataEye.validator.validate(arrayToTestArray[i]);
+            var objToTest2 = dataEye.validator.validateObject(arrayToTestArray[i]);
+            expect(objToTest2.valid).toBe(true);
+        }
+        expect(dataEye.validator.removeActionsWithErrors.callCount).toBe(0);
+    });
+
+    it('validates incorrect object', function() {
+        var arrayToTestArray = validatorHelper.getFailingValidateObj(),
+            numberOfFailedId = 0;
+
+        for (var i = 0; i < arrayToTestArray.length; i++) {
+            var objToTest = validator.validate(arrayToTestArray[i]);
+            var objToTest2 = validator.validateObject(arrayToTestArray[i]);
+            if (objToTest2.valid !== undefined && objToTest2.valid === false) {
+                numberOfFailedId++;
             }
-            expect(validator.removeActionsWithErrors.callCount).toBe(0);
-        });
+        }
+        //console.log('numberOfFailedId',numberOfFailedId, 'arrayToTestArray.length', arrayToTestArray.length);
+        expect(dataEye.validator.removeActionsWithErrors.callCount).toBe(arrayToTestArray.length - numberOfFailedId);
+    });
 
-        it('validates incorrect object', function() {
-            var arrayToTestArray = validatorHelper.getFailingValidateObj(),
-                numberOfFailedId = 0;
-
-            for (var i = 0; i < arrayToTestArray.length; i++) {
-                var objToTest = validator.validate(arrayToTestArray[i]);
-                var objToTest2 = validator.validateObject(arrayToTestArray[i]);
-                if (objToTest2.valid !== undefined && objToTest2.valid === false) {
-                    numberOfFailedId++;
-                }
-            }
-            //console.log('numberOfFailedId',numberOfFailedId, 'arrayToTestArray.length', arrayToTestArray.length);
-            expect(validator.removeActionsWithErrors.callCount).toBe(arrayToTestArray.length - numberOfFailedId);
-        });
-
-        /*it('should not throw error when userIP is undefined', function() {
+    /*it('should not throw error when userIP is undefined', function() {
             expect(function() {
                 validator.validateObject(objectWithoutUserID);
             }).not.toThrow();
 
         });*/
 
-    });
 });
