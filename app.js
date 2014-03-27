@@ -50,7 +50,7 @@ app.post('/receiver', function(req, res) {
 	//console.log("post received:", req.body.message);
 	//FIX TODO check data and send response depending
 	res.json(200, {
-		"success": "success"
+		'success': 'success'
 	});
 	//req.body.message.head = req.headers;
 	dataEye.emitter.emit('onReceive', req);
