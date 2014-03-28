@@ -29,7 +29,7 @@ describe('Validator', function() {
     });
 
     afterEach(function() {
-        console.log('test nb: ' + i + ' number of errors in actions: ' + validator.removeActionsWithErrors.callCount);
+        console.log('test nb: ' + i + ' number of errors in actions: ' + dataEye.validator.removeActionsWithErrors.callCount);
         i++;
         dataEye.validator.removeActionsWithErrors.reset();
     });
@@ -37,8 +37,8 @@ describe('Validator', function() {
     it('validates correct object', function() {
         var arrayToTestArray = validatorHelper.getPassingValidateObj();
         for (var i = 0; i < arrayToTestArray.length; i++) {
-            var objToTest = dataEye.validator.validate(arrayToTestArray[i]);
-            var objToTest2 = dataEye.validator.validateObject(arrayToTestArray[i]);
+            var objToTest = dataEye.validator.validate(arrayToTestArray[i], validatorHelper.header);
+            var objToTest2 = dataEye.validator.validateObject(arrayToTestArray[i], validatorHelper.header);
             expect(objToTest2.valid).toBe(true);
         }
         expect(dataEye.validator.removeActionsWithErrors.callCount).toBe(0);
@@ -49,13 +49,12 @@ describe('Validator', function() {
             numberOfFailedId = 0;
 
         for (var i = 0; i < arrayToTestArray.length; i++) {
-            var objToTest = validator.validate(arrayToTestArray[i]);
-            var objToTest2 = validator.validateObject(arrayToTestArray[i]);
+            var objToTest = dataEye.validator.validate(arrayToTestArray[i], validatorHelper.header);
+            var objToTest2 = dataEye.validator.validateObject(arrayToTestArray[i], validatorHelper.header);
             if (objToTest2.valid !== undefined && objToTest2.valid === false) {
                 numberOfFailedId++;
             }
         }
-        //console.log('numberOfFailedId',numberOfFailedId, 'arrayToTestArray.length', arrayToTestArray.length);
         expect(dataEye.validator.removeActionsWithErrors.callCount).toBe(arrayToTestArray.length - numberOfFailedId);
     });
 

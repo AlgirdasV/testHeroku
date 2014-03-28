@@ -63,9 +63,8 @@ var Validator = function() {
     };
 
     this.validate = function(object, info2) {
-        var objectResult = this.validateObject(object, info2);
-        // var objectResult = inspector.validate(objectSchema, object);
-        var actionsWithErrors = [];
+        var objectResult = this.validateObject(object, info2),
+            actionsWithErrors = [];
         if (!objectResult.valid) {
             console.log('Validation failed');
             dataEye.emitter.emit('onValidateFail', object);
@@ -74,7 +73,6 @@ var Validator = function() {
             var actions = object.actions;
             for (var i = actions.length - 1; i >= 0; i--) {
                 var validated = this.validateAction(actions[i]);
-                //console.log(result.format());
                 if (!validated) {
                     actionsWithErrors.push(i);
                 }
@@ -110,8 +108,11 @@ var Validator = function() {
 
     this.validateObject = function(object, info2) {
         var temp = object.userID;
-        object.userID = [temp, info2];
-        return dataEye.inspector.validate(dataEye.schemas.objectSchema, object);
+        var test2 = {};
+        test2.userID = [temp, info2];
+        test2.actions = object.actions;
+        console.log('validate object?????????????',info2);
+        return dataEye.inspector.validate(dataEye.schemas.objectSchema, test2);
     };
 
 };

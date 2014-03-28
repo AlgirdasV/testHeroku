@@ -48,7 +48,7 @@ var IdGenerator = function() {
 	};
 
 	this.decode = function(encoded) {
-		console.log(encoded);
+		console.log('!!!',encoded);
 		encoded = encoded.substr(2);
 		return new Buffer(encoded || '', 'base64').toString('utf8');
 	};
@@ -73,6 +73,7 @@ var IdGenerator = function() {
 
 
 	this.genOs = function(head) {
+		//console.log(head);
 		var os = "Unknown";
 		if (head.indexOf("Win") !== -1) {
 			os = "Windows";

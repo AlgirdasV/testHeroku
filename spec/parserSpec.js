@@ -6,7 +6,8 @@ describe('Parser', function() {
         JSONObject = {},
         JSONstringified = {},
         JSONUserInfo = {
-            userID: 'asdfas',
+            userID: 'OIMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTA2NDM1MDI1',
+            'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.154 Safari/537.36',
             actions: [{
                 synced: true,
                 timeNow: Date.now(),
@@ -18,7 +19,6 @@ describe('Parser', function() {
         };
 
     beforeEach(function() {
-        JSONObject.headers = 'headers';
         JSONObject.body = {};
         JSONstringified = JSON.stringify(JSONUserInfo);
         JSONObject.body.message = JSONstringified;

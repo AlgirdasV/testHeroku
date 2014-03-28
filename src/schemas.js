@@ -7,8 +7,8 @@ var Schemas = function() {
             userID: {
                 type: 'array',
                 exec: function(schema, post) {
+                  //console.log('postas:', post/*, post[1], post[2]*/);
                     if (post && post.length === 2 && post[0] !== undefined && post[1] !== undefined) {
-
                         var head = post[1],
                             info = dataEye.idGenerator.decode(post[0]),
                             splits = info.split('_'),
@@ -18,16 +18,20 @@ var Schemas = function() {
                             lang = splits[3],
                             time = splits[4];
                         if (time === undefined || id === undefined || fullBrowser === undefined || os === undefined || lang === undefined) {
+                            console.log('fail1');
                             this.report('ID is not valid ');
                         } else {
                             //FIX TODO add check by browser
                             if ((Date.now() < time) || os !== dataEye.idGenerator.genOs(head['user-agent']) || !dataEye.idGenerator.check(id)) {
+                                console.log('fail2');
                                 this.report('ID is not valid ');
                             }
                         }
                     } else {
                         this.report(post + 'was undefined');
+                        console.log('fail3');
                     }
+                
                 }
             },
             actions: {
