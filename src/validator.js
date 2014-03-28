@@ -3,7 +3,8 @@ var Validator = function() {
     var _eventsWithPosition = ['click', 'dblclick', 'focus', 'dragstart', 'drop', 'scroll', 'change'],
         _eventsWithScreenSize = ['resize', 'startscreen'],
         _eventsWithElementID = ['click', 'focus', 'dblclick', 'dragstart', 'drop', 'change'],
-        _eventsWithUrl = ['click', 'startscreen'];
+        _eventsWithUrl = ['click', 'dblclick', 'focus', 'dragstart', 'drop',
+                'scroll', 'change','resize', 'startscreen'];
 
     function _shouldBeNull(self, post) {
         if (post !== null) {
