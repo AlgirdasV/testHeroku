@@ -116,6 +116,13 @@ var Validator = function() {
         return dataEye.inspector.validate(dataEye.schemas.objectSchema, test2);
     };
 
+    this.validateUserID = function(object, info2) {
+        var temp = object;
+        var test2 = {};
+        test2.userID = [temp, info2];
+        return dataEye.inspector.validate(dataEye.schemas.idSchema, test2).valid;
+    };
+
 };
 
 module.exports = Validator;

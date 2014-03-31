@@ -46,14 +46,25 @@ if ('development' === app.get('env')) {
 }
 
 app.get('/', routes.index);
+
 app.post('/receiver', function(req, res) {
 	//console.log("post received:", req.body.message);
 	//FIX TODO check data and send response depending
-	res.json(200, {
-		'success': 'success'
-	});
+	var parsed = dataEye.parser.parseObjectOnly(req);
+	if(dataEye.validator.validateUserID(parsed.head, parsed.obj)){
+		res.json(200, {
+			'success': 'success',
+			'userId': JSON.parse(req.body.message).userID
+		});
+	}
+	else{
+		res.json(200, {
+			'success': 'success',
+			'userId': dataEye.idGenerator.getUniqueId(req)
+		});
+	}
 	//req.body.message.head = req.headers;
-	dataEye.emitter.emit('onReceive', req);
+	//dataEye.emitter.emit('onReceive', req);
 });
 
 app.post('/register', function(req, res) {

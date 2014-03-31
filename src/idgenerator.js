@@ -34,7 +34,7 @@ var IdGenerator = function() {
 		os = this.genOs(head['user-agent']);
 		lang = head['accept-language'];
 
-		cookieId = this.getRealId() + '_' + browserFullName + '_' + os + '_' + body.w + 'x' + body.h + '_' + lang + '_' + body.t;
+		cookieId = this.getRealId() + '_' + browserFullName + '_' + os + '_' + body.w + 'x' + body.h + '_' + lang + '_' + Date.now();
 		cookieId = this.encode(cookieId);
 		cookieId = this.randChar() + this.randChar() + cookieId;
 
@@ -73,7 +73,6 @@ var IdGenerator = function() {
 
 
 	this.genOs = function(head) {
-		//console.log(head);
 		var os = "Unknown";
 		if (head.indexOf("Win") !== -1) {
 			os = "Windows";
