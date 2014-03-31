@@ -169,8 +169,12 @@ function DataStorage() {
     };
 
     // dataSavedHandler event handler
+<<<<<<< Updated upstream
     this.checkStorageSize = function() {
         var size = localStorage.length;
+=======
+    this.checkStorageSize = function(size) {
+>>>>>>> Stashed changes
         console.log('Log contains ' + size +
             ' item(s), and will sync after reaches ' + littleEye.maximumAllowedSize);
         if (size === littleEye.maximumAllowedSize - 1) {
@@ -299,7 +303,11 @@ function ServerFunctions() {
         $.ajax({
             type: 'POST',
             //http://little-eye.herokuapp.com/
+<<<<<<< Updated upstream
             url: 'http://little-eye.herokuapp.com/receiver',
+=======
+            url: 'http://localhost:3000/receiver',
+>>>>>>> Stashed changes
             crossDomain: true,
             data: data2,
             dataType: 'json',
@@ -325,7 +333,11 @@ function ServerFunctions() {
 
         $.ajax({
             type: 'POST',
+<<<<<<< Updated upstream
             url: 'http://little-eye.herokuapp.com/register', //http://little-eye.herokuapp.com/
+=======
+            url: 'http://localhost:3000/register', //http://little-eye.herokuapp.com/
+>>>>>>> Stashed changes
             crossDomain: true,
             data: data2,
             dataType: 'json',
@@ -347,7 +359,11 @@ function Subscriber() {
 
     (function subscriber() {
         window.addEventListener('eventInfoSaved', function() {
+<<<<<<< Updated upstream
             littleEye.dataStorage.checkStorageSize();
+=======
+            littleEye.dataStorage.checkStorageSize(localStorage.length);
+>>>>>>> Stashed changes
         }, false);
         window.addEventListener('eventTrigered', function(e) {
             var eventInfo = new EventInfo(e.detail);

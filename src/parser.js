@@ -12,7 +12,6 @@ var Parser = function() {
 			visi = {};
 			visi.head = head;
 			visi.obj = obj;
-			console.log('objektas', obj);
 		return visi;
 	};
 

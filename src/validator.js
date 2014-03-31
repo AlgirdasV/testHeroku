@@ -109,6 +109,7 @@ var Validator = function() {
 
     this.validateObject = function(object, info2) {
         var temp = object.userID;
+<<<<<<< Updated upstream
         var test2 = {};
         test2.userID = [temp, info2];
         test2.actions = object.actions;
@@ -121,6 +122,10 @@ var Validator = function() {
         var test2 = {};
         test2.userID = [temp, info2];
         return dataEye.inspector.validate(dataEye.schemas.idSchema, test2).valid;
+=======
+        object.userID = [temp, info2];
+        return dataEye.inspector.validate(dataEye.schemas.objectSchema, object);
+>>>>>>> Stashed changes
     };
 
 };

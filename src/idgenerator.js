@@ -48,7 +48,6 @@ var IdGenerator = function() {
 	};
 
 	this.decode = function(encoded) {
-		console.log('!!!',encoded);
 		encoded = encoded.substr(2);
 		return new Buffer(encoded || '', 'base64').toString('utf8');
 	};

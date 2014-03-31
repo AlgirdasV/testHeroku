@@ -82,3 +82,10 @@ app.post('/register', function(req, res) {
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
 });
+
++// http://nodejs.org/api/process.html#process_process_stdout
+console.log('Is stdout blocking?', process.stdout.isTTY);
+console.log('Is stderr blocking?', process.stderr.isTTY);
+
+console.log('Full stdout:\n', process.stdout);
+console.log('Full stderr:\n', process.stderr);
