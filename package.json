@@ -1,6 +1,6 @@
 {
   "name": "application-name",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "start": "node app.js"
@@ -20,6 +20,7 @@
     "grunt-contrib-concat": "^0.3.0",
     "grunt-jasmine-node": "^0.1.0",
     "underscore": "1.x",
-    "request": "*"
+    "request": "*",
+    "grunt-release": "^0.7.0"
   }
 }
