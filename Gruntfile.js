@@ -52,16 +52,35 @@ module.exports = function(grunt) {
             src: ['Gruntfile.js', 'src/**/*.js', 'spec/*.js']
         },
         watch: {
-            scripts: {
+            full: {
                 files: ['**/*.js'],
-                tasks: ['jasmine', 'jshint'],
+                tasks: [ 'jshint', 'jasmine_node'
+                ],
                 options: {
-                    // livereload: true,
+                    //livereload: true,
+                    spawn: false,
+                },
+            },
+            forTesting: {
+                files: ['**/*.js'],
+                tasks: ['jasmine_node'
+                ],
+                options: {
+                    //livereload: true,
+                    spawn: false,
+                },
+            },
+            withJSHint: {
+                files: ['**/*.js'],
+                tasks: ['jshint'],
+                options: {
+                    //livereload: true,
                     spawn: false,
                 },
             },
         },
-        jasmine_node: {
+
+    jasmine_node: {
             // src: ['routes/parser.js'],
             matchall: true, // load only specs containing specNameMatcher
             projectRoot: ".",
@@ -83,6 +102,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-jasmine-node');
+    grunt.loadNpmTasks('grunt-release');
 
     // Default task(s).
     grunt.registerTask('default', ['watch']);
