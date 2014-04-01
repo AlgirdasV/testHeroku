@@ -68,37 +68,37 @@ var validatorHelper = function() {
 
 		resetMockUp();
 		mockUp.userID = 'KGMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTEwMDYyNDE0';
-		mockUp.actions.push(setValidAction(Date.now(), eventType[1], null, null, 'elementId', 100, 100, null));
+		mockUp.actions.push(setValidAction(Date.now(), eventType[1], null, null, 'elementId', 100, 100, 'www.someUrl.com'));
 		validateObjectToPass.push(mockUp);
 
 		resetMockUp();
 		mockUp.userID = 'KGMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTEwMDYyNDE0';
-		mockUp.actions.push(setValidAction(Date.now(), eventType[2], null, null, 'elementId', 100, 100, null));
+		mockUp.actions.push(setValidAction(Date.now(), eventType[2], null, null, 'elementId', 100, 100, 'www.someUrl.com'));
 		validateObjectToPass.push(mockUp);
 
 		resetMockUp();
 		mockUp.userID = 'KGMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTEwMDYyNDE0';
-		mockUp.actions.push(setValidAction(Date.now(), eventType[3], null, null, 'elementId', 100, 100, null));
+		mockUp.actions.push(setValidAction(Date.now(), eventType[3], null, null, 'elementId', 100, 100, 'www.someUrl.com'));
 		validateObjectToPass.push(mockUp);
 
 		resetMockUp();
 		mockUp.userID = 'KGMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTEwMDYyNDE0';
-		mockUp.actions.push(setValidAction(Date.now(), eventType[4], null, null, 'elementId', 100, 100, null));
+		mockUp.actions.push(setValidAction(Date.now(), eventType[4], null, null, 'elementId', 100, 100, 'www.someUrl.com'));
 		validateObjectToPass.push(mockUp);
 
 		resetMockUp();
 		mockUp.userID = 'KGMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTEwMDYyNDE0';
-		mockUp.actions.push(setValidAction(Date.now(), eventType[5], null, null, null, 100, 100, null));
+		mockUp.actions.push(setValidAction(Date.now(), eventType[5], null, null, null, 100, 100, 'www.someUrl.com'));
 		validateObjectToPass.push(mockUp);
 
 		resetMockUp();
 		mockUp.userID = 'KGMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTEwMDYyNDE0';
-		mockUp.actions.push(setValidAction(Date.now(), eventType[6], null, null, 'elementId', null, null, null));
+		mockUp.actions.push(setValidAction(Date.now(), eventType[6], null, null, 'elementId', null, null, 'www.someUrl.com'));
 		validateObjectToPass.push(mockUp);
 
 		resetMockUp();
 		mockUp.userID = 'KGMTBfQ2hyb21lIDMzLjAuMTc1MC4xNTRfV2luZG93c18xNjAweDkwMF9lbi1VUyxlbjtxPTAuOCxsdDtxPTAuNl8xMzk1OTEwMDYyNDE0';
-		mockUp.actions.push(setValidAction(Date.now(), eventType[7], 100, 100, null, null, null, null));
+		mockUp.actions.push(setValidAction(Date.now(), eventType[7], 100, 100, null, null, null, 'www.someUrl.com'));
 		validateObjectToPass.push(mockUp);
 
 		resetMockUp();

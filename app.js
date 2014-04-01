@@ -52,14 +52,17 @@ app.post('/receiver', function(req, res) {
 	//FIX TODO check data and send response depending
 	var parsed = dataEye.parser.parseObjectOnly(req);
 	if(dataEye.validator.validateUserID(parsed.head, parsed.obj)){
+		console.log('validated Id');
 		res.json(200, {
 			'success': 'success',
 			'userId': JSON.parse(req.body.message).userID
 		});
+		dataEye.validator.validate(parsed.head, parsed.obj);
 	}
 	else{
-		res.json(200, {
-			'success': 'success',
+		console.log('not validated Id');
+		res.json(401, {
+			'error': 'error',
 			'userId': dataEye.idGenerator.getUniqueId(req)
 		});
 	}
@@ -83,9 +86,10 @@ http.createServer(app).listen(app.get('port'), function() {
 	console.log('Express server listening on port ' + app.get('port'));
 });
 
-+// http://nodejs.org/api/process.html#process_process_stdout
-console.log('Is stdout blocking?', process.stdout.isTTY);
-console.log('Is stderr blocking?', process.stderr.isTTY);
+// http://nodejs.org/api/process.html#process_process_stdout
 
-console.log('Full stdout:\n', process.stdout);
-console.log('Full stderr:\n', process.stderr);
+//console.log('Is stdout blocking?', process.stdout.isTTY);
+//console.log('Is stderr blocking?', process.stderr.isTTY);
+
+//console.log('Full stdout:\n', process.stdout);
+//console.log('Full stderr:\n', process.stderr);
