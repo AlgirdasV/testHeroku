@@ -53,7 +53,7 @@ module.exports = function(grunt) {
         },
         watch: {
             full: {
-                files: ['**/*.js'],
+                files: ['**/*.js','!**/node_modules/**'],
                 tasks: [ 'jshint', 'jasmine_node'
                 ],
                 options: {
@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                 },
             },
             forTesting: {
-                files: ['**/*.js'],
+                files: ['**/*.js','!**/node_modules/**'],
                 tasks: ['jasmine_node'
                 ],
                 options: {
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
                 },
             },
             withJSHint: {
-                files: ['**/*.js'],
+                files: ['**/*.js', '!**/node_modules/**'],
                 tasks: ['jshint'],
                 options: {
                     //livereload: true,
