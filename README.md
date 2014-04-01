@@ -10,7 +10,7 @@ DataCollector v 0.1.1 2014-03-19
   -cors
   -grunt
   -schema inspector
-  
+
 Obviously, they should be supported in order to run and develop DataCollector.
 
 ##### INSTALLATION
@@ -33,14 +33,14 @@ which will help you to lint your code.
 ##### FILE SYSTEM STRUCTURE
 --------------------------------------
 
-Root directory includes following files 
+Root directory includes following files
   -app.js (main app file, that stars server)
   -changelog.txt (bug fixes, new and removed features)
   -Gruntfile.js (it is used for developing purposes only, to lint and test code)
   -package.jsoin (defines needed packages for node package manager)
   -.gitignore (makes node modules folder invisible)
   -README.md (this file)
-  
+
 In public folder (and its subfolder) is stored ClientRecorder app files and logs.txt file, which provides logs made by Client recorder
 
 routes folder contains index.js which generates index site view
@@ -52,11 +52,11 @@ views folder contains testing enviroment instance
 --------------------------------------
 
 Features
-  -Receive post 
+  -Receive post
   -Send response to post request
   -Validate received data
   -Record received data to logs.txt file
-  
+
 ##### UPDATING CURRENT HEROKU APP INSTANCE
 --------------------------------------
 
@@ -82,3 +82,6 @@ heroku ps:scale web=1
 ```bash
 heroku ps
 ```
+
+____
+test
